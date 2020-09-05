@@ -1,0 +1,24 @@
+GET http://localhost:3000/auth
+
+### Login admin token
+POST http://localhost:3000/auth
+Content-Type: application/json
+Accept: application/json
+{
+    "username": "admin",
+    "password": "admin"
+}
+
+// set admin token
+{%
+client.global.set("admin_token", response.body.token);
+%}
+
+### login regular user token
+POST http://localhost:3000/localhost:3000/auth
+Content-Type: application/json
+Accept: application/json
+{
+    "username": "admin",
+    "password":"login"
+}

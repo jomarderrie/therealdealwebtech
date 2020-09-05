@@ -1,12 +1,10 @@
 GET http://localhost:3000
 
-###
-GET http://localhost:3000/index.html
 
-# specify JWT token here
-# client.global.set("token", }
 ###
+GET http://localhost:3000/token
 
+###
 # GET http://localhost:3000/resource/{{token}}
 # Content-Type: application/json
 # Authorization: bearer {{token}}

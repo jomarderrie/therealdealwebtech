@@ -9,8 +9,8 @@ const users = [
 	},
 	{
 		id: uuidv4(),
-		username: 'henk2',
-		password: 'henk1223',
+		username: 'admin',
+		password: 'admin',
 		email: 'henk2@gmail.com'
 	},
 	{

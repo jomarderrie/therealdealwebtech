@@ -2,8 +2,8 @@ const express = require('express');
 const port = 3000;
 const bodyParser = require('body-parser');
 //bring routes
-const userAuctionRoutes = require('./routes/api/user');
-const itemAuctionRoutes = require('./routes/api/auction');
+const authRoute = require('./routes/api/auth');
+const AuctionRoutes = require('./routes/api/auction');
 const bidRoute = require('./routes/api/bid');
 //app
 const app = express();
@@ -17,9 +17,9 @@ app.use(
 	})
 );
 // routes middleware
-app.use('/user', userAuctionRoutes);
-app.use('/auction', itemAuctionRoutes);
-app.use('/bid', itemAuctionRoutes);
+app.use('/auth', authRoute);
+app.use('/auction', AuctionRoutes);
+app.use('/bid', bidRoute);
 //routes
 
 app.get('/', (req, res) => {

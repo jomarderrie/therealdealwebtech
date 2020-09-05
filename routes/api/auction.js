@@ -7,56 +7,61 @@ const router = express.Router();
 // @desc     Display a list of auctionable products or services
 // @access   Public
 
-router.get('', (req, res) => {
-	res.json({ auctions: { items } });
-});
-
 // @route    GET api/auction/:search
-// example search :search="socrates"?Price=50&location=utrecht&technique=bronze
-// @desc     It should be possible to search the list of auctions with logical filters
-// @access   Public
+// @param search = item to search for
+// @param price = under a certain price
+// @param location = the location
+// @param technique = bronze
+// @desc It should be possible to search the list of auctions with logical filters.
+// @access  Public
+router.get('', (req, res) => {
+	const { search, location, price, technique } = req.query;
+	let auctionItems = [ ...items ];
 
-router.get('/:search', (req, res) => {
-	//search query
-	let queryString = req.params.search;
-	//location
-	let locationQuery = req.query.location;
-	//price
-	let priceQuery = req.query.price;
-	//technique
-	let techniqueQuery = req.query.technique;
-
-	items = items.filter(({ title }) => {
-		return title.toLowerCase().indexOf(queryString.toLowerCase()) != -1;
-	});
-
-	if (locationQuery !== undefined) {
-		items = items.filter(({ location }) => {
-			return locationQuery.toLowerCase() === location.toLowerCase();
+	//search for auctionItems with a given keyword in it
+	if (search !== undefined) {
+		auctionItems = auctionItems.filter(({ title }) => {
+			console.log(search.toLowerCase());
+			return title.toLowerCase().indexOf(search.toLowerCase()) != -1;
 		});
 	}
 
-	if (priceQuery !== undefined) {
-		priceQuery = parseInt(priceQuery);
-		if (Number.isNaN(priceQuery)) {
-			console.log(priceQuery);
+	//location
+	if (location !== undefined) {
+		let lowerCaseLocation = location.toLowerCase();
+		auctionItems = auctionItems.filter(({ location }) => {
+			console.log(location);
+			return lowerCaseLocation === location.toLowerCase();
+		});
+	}
+	//price
+	if (price !== undefined) {
+		let parsedPrice = parseInt(price);
+		if (Number.isNaN(parsedPrice)) {
 			res.status(404).json({ error: 'Invalid number filled in' });
 		}
-		items = items.filter(({ price }) => {
-			return price <= priceQuery;
+		auctionItems = auctionItems.filter((item) => {
+			return item.price <= parsedPrice;
 		});
 	}
-	console.log(techniqueQuery);
-	if (techniqueQuery !== undefined) {
-		items = items.filter(({ technique }) => {
-			return techniqueQuery.toLowerCase() === technique.toLowerCase();
+	//technique
+	if (technique !== undefined) {
+		let techniqueLowerCase = technique.toLowerCase();
+		console.log(techniqueLowerCase);
+		auctionItems = auctionItems.filter(({ technique }) => {
+			return techniqueLowerCase === technique.toLowerCase();
 		});
 	}
 
-	if (items.length === 0) {
-		res.status(404).json({ error: 'No items founds' });
+	//if nothing is defined lets give all the items.
+	//else if the search didnt find us anything
+	//else give the items found
+	if (search === undefined && location === undefined && price === undefined && technique === undefined) {
+		res.status(200).json({ auctionItems: auctionItems });
+	} else if (auctionItems.length === 0) {
+		res.status(404).json({ error: 'No auction items founds' });
 	} else {
-		res.status(200).json({ items: items });
+		res.status(200).json({ auctionItems: auctionItems });
 	}
 });
 

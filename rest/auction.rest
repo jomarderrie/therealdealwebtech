@@ -1,0 +1,21 @@
+GET http://localhost:3000/auction
+
+### get all auctions
+GET http://localhost:3000/auction
+
+### search for an item search = eye
+GET http://localhost:3000/auction?search=eye
+
+### search for an item under the price of 48
+GET http://localhost:3000/auction?price=48
+
+### search for an given location = utrecht
+GET http://localhost:3000/auction?location=utrecht
+
+### search for an given technique = digital
+GET http://localhost:3000/auction?technique=digital
+
+### invalid logical search
+GET http://localhost:3000/auction/?search=deeznuts
+
+
