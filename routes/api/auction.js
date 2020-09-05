@@ -17,8 +17,6 @@ router.get('', (req, res) => {
 // @access   Public
 
 router.get('/:search', (req, res) => {
-	let responseObject = [ ...items ];
-	let resultArray = [];
 	//search query
 	let queryString = req.params.search;
 	//location
@@ -28,12 +26,12 @@ router.get('/:search', (req, res) => {
 	//technique
 	let techniqueQuery = req.query.technique;
 
-	responseObject = responseObject.filter(({ title }) => {
+	items = items.filter(({ title }) => {
 		return title.toLowerCase().indexOf(queryString.toLowerCase()) != -1;
 	});
 
 	if (locationQuery !== undefined) {
-		responseObject = responseObject.filter(({ location }) => {
+		items = items.filter(({ location }) => {
 			return locationQuery.toLowerCase() === location.toLowerCase();
 		});
 	}
@@ -42,20 +40,24 @@ router.get('/:search', (req, res) => {
 		priceQuery = parseInt(priceQuery);
 		if (Number.isNaN(priceQuery)) {
 			console.log(priceQuery);
-			res.json({ error: 'Invalid number filled in' });
+			res.status(404).json({ error: 'Invalid number filled in' });
 		}
-		responseObject = responseObject.filter(({ price }) => {
+		items = items.filter(({ price }) => {
 			return price <= priceQuery;
 		});
 	}
 	console.log(techniqueQuery);
 	if (techniqueQuery !== undefined) {
-		responseObject = responseObject.filter(({ technique }) => {
+		items = items.filter(({ technique }) => {
 			return techniqueQuery.toLowerCase() === technique.toLowerCase();
 		});
 	}
 
-	res.json({ searchedItems: responseObject });
+	if (items.length === 0) {
+		res.status(404).json({ error: 'No items founds' });
+	} else {
+		res.status(200).json({ items: items });
+	}
 });
 
 module.exports = router;
