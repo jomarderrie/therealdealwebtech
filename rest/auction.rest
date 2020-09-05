@@ -18,4 +18,3 @@ GET http://localhost:3000/auction?technique=digital
 ### invalid logical search
 GET http://localhost:3000/auction/?search=deeznuts
 
-

@@ -2,18 +2,16 @@ let items = require('../../data/auctionData');
 const express = require('express');
 const { Router } = require('express');
 const router = express.Router();
-
-// @route    GET api/auction
-// @desc     Display a list of auctionable products or services
-// @access   Public
+const auth = require('../../middleware/auth');
 
 // @route    GET api/auction/:search
-// @param search = item to search for
-// @param price = under a certain price
-// @param location = the location
-// @param technique = bronze
-// @desc It should be possible to search the list of auctions with logical filters.
-// @access  Public
+// @desc     Display a list of auctionable products or services. It should be possible to search the list of auctions with logical filters.
+// @access   Public
+// @param search
+// @param price
+// @param location
+// @param technique
+
 router.get('', (req, res) => {
 	const { search, location, price, technique } = req.query;
 	let auctionItems = [ ...items ];
@@ -63,6 +61,13 @@ router.get('', (req, res) => {
 	} else {
 		res.status(200).json({ auctionItems: auctionItems });
 	}
+});
+// @route    GET api/auction/won
+// @desc     I want to see a list of all auctions I won
+// @access   Public
+// @route    GET api/auction/:search
+router.get('/won', auth, (req, res) => {
+	res.json(items.filter((item) => item.username === req.user.username));
 });
 
 module.exports = router;
