@@ -11,9 +11,7 @@ const jwt = require('jsonwebtoken');
 // @acces Public
 router.post('/register', async (req, res) => {
 	const { username, email, password } = req.body;
-	console.log(username);
-	console.log(email);
-	console.log(req.query);
+
 	if (username === undefined) {
 		res.status(404).json({ msg: 'Email or username not filled in' });
 	}
@@ -33,6 +31,7 @@ router.post('/register', async (req, res) => {
 	} else {
 		const saltRounds = 10;
 		const hashedPassword = await bcrypt.hash(password, saltRounds);
+		console.log(hashedPassword);
 		responseObject = {
 			id: uuidv4(),
 			username: username,
@@ -51,15 +50,16 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
 	const user = users.find((user) => user.email === req.body.email);
+	console.log(req.body.password);
 	if (user == null) {
 		return res.status(400).json({ msg: 'Cannot find email' });
 	}
 	try {
 		if (await bcrypt.compare(req.body.password, user.password)) {
 			const accesToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-			res.status(200).json({ user: accesToken });
+			res.status(200).json({ token: accesToken });
 		} else {
-			res.status(400).json({ msg: 'Invalid password' });
+			res.status(400).json({ msg: 'Invalid info' });
 		}
 	} catch (err) {
 		res.status(500).json({ msg: 'Internal server error' });

@@ -1,12 +1,37 @@
 GET http://localhost:3000/auth
 
-### Login admin 
+### Register user 
 POST http://localhost:3000/auth/register 
 Content-Type: application/json
 
 {
     "username":"henasdak",
     "email":"deez@gmail.com",
-    "password":"henk123"
+    "password":"henk123321"
 }
+
+### login user
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email":"deez@gmail.com",
+    "password":"henk123321"
+
+}
+
+### admin user
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email":"admin@gmail.com",
+    "password":"admin"
+}
+
+//https://www.jetbrains.com/help/phpstorm/http-response-handling-examples.html#checking-response-headers-body
+# > {%
+# client.global.set("user_token", response.body.token)
+# %}
+
 
