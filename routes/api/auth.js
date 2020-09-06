@@ -3,8 +3,8 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const users = require('../../data/userData');
 const { v4: uuidv4 } = require('uuid');
-require('dotenv').config();
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 // @route POST /auth/register
 // @desc As a user I want to be able to register (email address and password)
@@ -16,6 +16,9 @@ router.post('/register', async (req, res) => {
 		res.status(404).json({ msg: 'Email or username not filled in' });
 	}
 	if (email === undefined) {
+		res.status(404).json({ msg: 'Email or username not filled in' });
+	}
+	if (password === undefined) {
 		res.status(404).json({ msg: 'Email or username not filled in' });
 	}
 
@@ -31,7 +34,6 @@ router.post('/register', async (req, res) => {
 	} else {
 		const saltRounds = 10;
 		const hashedPassword = await bcrypt.hash(password, saltRounds);
-		console.log(hashedPassword);
 		responseObject = {
 			id: uuidv4(),
 			username: username,
@@ -50,7 +52,7 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
 	const user = users.find((user) => user.email === req.body.email);
-	console.log(req.body.password);
+
 	if (user == null) {
 		return res.status(400).json({ msg: 'Cannot find email' });
 	}
@@ -65,5 +67,9 @@ router.post('/login', async (req, res) => {
 		res.status(500).json({ msg: 'Internal server error' });
 	}
 });
+
+router.post('/token');
+
+router.delete('/logout');
 
 module.exports = router;

@@ -67,7 +67,9 @@ router.get('', (req, res) => {
 // @access   Public
 // @route    GET api/auction/:search
 router.get('/won', auth, (req, res) => {
-	res.json(items.filter((item) => item.username === req.user.username));
+	console.log('hello');
+	// console.log(req.body.username);
+	// res.json(items.filter((item) => item.username === req.user.username));
 });
 
 module.exports = router;

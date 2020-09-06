@@ -57,4 +57,34 @@ router.post('/:id', (req, res) => {
 	res.status(500).json({ msg: 'Internal server error' });
 });
 
+// @route    DELETE api/bid/:id
+// @desc     I want to be able to remove my bid
+// @access   Private
+router.delete('/:id', (req, res) => {
+	let itemId = req.params.id;
+	let username = req.body.username;
+	let bid = req.body.bid;
+	let indexItem;
+	//lets first try to find the item.
+	let item = items.find(({ id }, index) => {
+		indexItem = index;
+		return id === parseInt(itemId);
+	});
+	// console.log(item);
+	//if the item hasnt been found item not found message
+	if (item === undefined) {
+		return res.status(404).json({ msg: 'Item not found' });
+	}
+	//lets check if the auction already has ended.
+	let now = parseInt(new Date().toISOString().slice(0, 10).replace(/-/g, ''));
+	let itemDate = parseInt(item.auction_end.split('-').join(''));
+	if (itemDate < now) {
+		return res.status(404).json({ msg: 'The auction already ended' });
+	}
+	//lets check if the user was the last bidder on the auction
+	if (item.bidder === username) {
+		return res.status(404).json({ msg: 'You werent the list bidder' });
+	}
+});
+
 module.exports = router;

@@ -8,13 +8,18 @@ require('dotenv').config();
 function authenticateToken(req, res, next) {
 	//get token from header
 	const authHeader = req.headers['authorization'];
-	const token = authHeader && authHeader.split(' ')[1];
+	const token = authHeader && authHeader.split(' ')[2];
+	console.log(token);
+
 	//check if token exist
-	if (token == null) return res.sendStatus(401).json({ msg: 'Try to login again' });
+	if (token == null) {
+		return res.sendStatus(401).json({ msg: 'Try to login again' });
+	}
 	//verify token
 	jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-		console.log(err);
-		if (err) return res.sendStatus(403).json({ msg: 'Invalid json token' });
+		if (err) {
+			return res.sendStatus(403).json({ msg: 'Invalid json token' });
+		}
 		req.user = user;
 		next();
 	});
