@@ -57,6 +57,7 @@ router.get('', (req, res) => {
 	if (search === undefined && location === undefined && price === undefined && technique === undefined) {
 		res.status(200).json({ auctionItems: auctionItems });
 	} else if (auctionItems.length === 0) {
+		//return empty array
 		res.status(404).json({ error: 'No auction items founds' });
 	} else {
 		res.status(200).json({ auctionItems: auctionItems });
