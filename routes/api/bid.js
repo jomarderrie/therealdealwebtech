@@ -2,14 +2,15 @@ let items = require('../../data/auctionData');
 const express = require('express');
 const { Router } = require('express');
 const router = express.Router();
+const auth = require('../../middleware/auth');
 
 // @route    POST api/bid/:id
 // @desc     I want to be able to place a bid on an auction
 // @access   Private
 
-router.post('/:id', (req, res) => {
+router.post('/:id', auth, (req, res) => {
 	let itemId = req.params.id;
-	let username = req.body.username;
+	let username = req.user.username;
 	let bid = req.body.bid;
 	let indexItem;
 	// console.log(items[0]);
@@ -60,21 +61,35 @@ router.post('/:id', (req, res) => {
 // @route    DELETE api/bid/:id
 // @desc     I want to be able to remove my bid
 // @access   Private
-router.delete('/:id', (req, res) => {
+router.delete('/:id', auth, (req, res) => {
+	console.log('hey');
 	let itemId = req.params.id;
-	let username = req.body.username;
-	let bid = req.body.bid;
+	let username = req.user.username;
 	let indexItem;
+
 	//lets first try to find the item.
 	let item = items.find(({ id }, index) => {
 		indexItem = index;
 		return id === parseInt(itemId);
 	});
-	// console.log(item);
+
 	//if the item hasnt been found item not found message
 	if (item === undefined) {
 		return res.status(404).json({ msg: 'Item not found' });
 	}
+
+	//lets first check if the user is
+	//  actually an admin if so remove it because admin can do everything
+	if (req.user.role == 'admin') {
+		//find the item and reset the values
+		items[indexItem] = {
+			...item,
+			bidder: null,
+			price: 0
+		};
+		return res.status(200).json({ msg: 'ok' });
+	}
+
 	//lets check if the auction already has ended.
 	let now = parseInt(new Date().toISOString().slice(0, 10).replace(/-/g, ''));
 	let itemDate = parseInt(item.auction_end.split('-').join(''));

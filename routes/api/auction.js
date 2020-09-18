@@ -63,13 +63,21 @@ router.get('', (req, res) => {
 		res.status(200).json({ auctionItems: auctionItems });
 	}
 });
+
 // @route    GET api/auction/won
 // @desc     I want to see a list of all auctions I won
 // @access   Public
 // @route    GET api/auction/:search
 router.get('/won', auth, (req, res) => {
-	console.log('hello');
-	// console.log(req.body.username);
+	// console.log(req.user);
+	let items3 = items.filter((item) => console.log(item));
+	let wonItems = items.filter((item) => item.bidder === req.user.username);
+	if (wonItems.length == 0) {
+		res.status(404).json({ error: 'No won auction items founds' });
+	} else {
+		res.status(200).json({ wonAuctionItems: wonItems });
+	}
+
 	// res.json(items.filter((item) => item.username === req.user.username));
 });
 

@@ -2,8 +2,11 @@ GET http://localhost:3000/user
 Content-Type: application/json
 Accept: application/json
 
-POST http://localhost:3000/auth/register
+### login
+POST http://localhost:3000/auth
+
 Content-Type: application/json
+
 {
 "username":"henk",
 "email":"henk@gmail.com",

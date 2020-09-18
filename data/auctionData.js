@@ -24,7 +24,7 @@ const items = [
 		technique: 'digital'
 	},
 	{
-		id: uuidv4(),
+		id: 2,
 		title: 'The human eye, Old medical atlas, illustration Digital Image, 64',
 		date: '2020-04-09',
 		auction_end: '2020-12-09',
@@ -35,18 +35,18 @@ const items = [
 		technique: 'Bronze'
 	},
 	{
-		id: uuidv4(),
+		id: 3,
 		title: 'The human eye, Old medical atlas, illustration Digital Image, 64',
 		date: '2020-04-09',
 		auction_end: '2020-12-09',
 		price: 49,
-		bidder: null,
+		bidder: 'henk',
 		img: './images/auction4.jpg',
 		location: 'Deventer',
 		technique: 'Bronze'
 	},
 	{
-		id: uuidv4(),
+		id: 4,
 		title: 'jungle demon, illustration Digital Image, 64',
 		date: '2020-04-09',
 		auction_end: '2020-12-09',

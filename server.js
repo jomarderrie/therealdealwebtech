@@ -3,8 +3,9 @@ const port = 3000;
 const bodyParser = require('body-parser');
 //bring routes
 const authRoute = require('./routes/api/auth');
-const AuctionRoutes = require('./routes/api/auction');
+const auctionRoute = require('./routes/api/auction');
 const bidRoute = require('./routes/api/bid');
+const registerRoute = require('./routes/api/user');
 //app
 const app = express();
 
@@ -18,12 +19,13 @@ app.use(
 );
 // routes middleware
 app.use('/auth', authRoute);
-app.use('/auction', AuctionRoutes);
+app.use('/auction', auctionRoute);
 app.use('/bid', bidRoute);
+app.use('/register', registerRoute);
 //routes
 
 app.get('/', (req, res) => {
-	res.send('Hello World!');
+	res.send('Hello welcome by assigment1!');
 });
 
 app.listen(port, () => {
