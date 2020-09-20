@@ -13,7 +13,7 @@ const items = [
 		technique: 'Bronze'
 	},
 	{
-		id: uuidv4(),
+		id: 2,
 		title: 'The human eye, Old medical atlas, illustration Digital Image, 64',
 		date: '2020-04-09',
 		auction_end: '2020-12-09',
@@ -24,7 +24,7 @@ const items = [
 		technique: 'digital'
 	},
 	{
-		id: 2,
+		id: 3,
 		title: 'The human eye, Old medical atlas, illustration Digital Image, 64',
 		date: '2020-04-09',
 		auction_end: '2020-12-09',
@@ -35,7 +35,7 @@ const items = [
 		technique: 'Bronze'
 	},
 	{
-		id: 3,
+		id: 4,
 		title: 'The human eye, Old medical atlas, illustration Digital Image, 64',
 		date: '2020-04-09',
 		auction_end: '2020-12-09',
@@ -46,7 +46,7 @@ const items = [
 		technique: 'Bronze'
 	},
 	{
-		id: 4,
+		id: 5,
 		title: 'jungle demon, illustration Digital Image, 64',
 		date: '2020-04-09',
 		auction_end: '2020-12-09',

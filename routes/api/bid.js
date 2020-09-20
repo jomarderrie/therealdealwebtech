@@ -62,7 +62,6 @@ router.post('/:id', auth, (req, res) => {
 // @desc     I want to be able to remove my bid
 // @access   Private
 router.delete('/:id', auth, (req, res) => {
-	console.log('hey');
 	let itemId = req.params.id;
 	let username = req.user.username;
 	let indexItem;
@@ -78,9 +77,8 @@ router.delete('/:id', auth, (req, res) => {
 		return res.status(404).json({ msg: 'Item not found' });
 	}
 
-	//lets first check if the user is
-	//  actually an admin if so remove it because admin can do everything
-	if (req.user.role == 'admin') {
+	//lets first check if the user is the actually admin if so remove it because admin can do everything
+	if (req.user.role === 'admin') {
 		//find the item and reset the values
 		items[indexItem] = {
 			...item,
@@ -100,6 +98,13 @@ router.delete('/:id', auth, (req, res) => {
 	if (item.bidder === username) {
 		return res.status(404).json({ msg: 'You werent the list bidder' });
 	}
+
+	//looks like everything is fine
+	items[indexItem] = {
+		...item,
+		bidder: null,
+		price: 0
+	};
 });
 
 module.exports = router;

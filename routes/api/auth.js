@@ -2,14 +2,13 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const users = require('../../data/userData');
-
+const auth = require('../../middleware/auth');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 // @route POST /auth/
 // @desc As an administrator/user and user I want to be able to log in
 // @acces Public
-
 router.post('/', async (req, res) => {
 	const user = users.find((user) => user.email === req.body.email);
 
@@ -23,7 +22,8 @@ router.post('/', async (req, res) => {
 					username: user.username,
 					role: user.role
 				},
-				process.env.ACCESS_TOKEN_SECRET
+				process.env.ACCESS_TOKEN_SECRET,
+				{ expiresIn: '1d' }
 			);
 			res.status(200).json({ token: accesToken });
 		} else {
@@ -34,8 +34,11 @@ router.post('/', async (req, res) => {
 	}
 });
 
-router.post('/token');
-
-router.delete('/logout', (req, res) => {});
+// @route POST /auth/delete
+// @desc As an administrator/user and user I want to be able to log out
+// @acces Public
+router.delete('/logout', auth, (req, res) => {
+	req.user.deleteToken(req.token, (err, user) => {});
+});
 
 module.exports = router;
