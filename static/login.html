@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Saxion Auction site</title>
+    <link rel="stylesheet" href="public/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="./page/login.js" type="module"></script>
+</head>
+
+<body>
+
+    <header>
+        <div class="banner_image"></div>
+    </header>
+    <!-- Don't forget to only show the options you are allowed to see-->
+    <nav class="auction_nav">
+        <!--        <img src="public/logo.svg"/>-->
+        <a href="index.html">Home</a>
+        <a href="bids.html">My bids</a>
+        <a href="administration.html">Administration</a>
+        <a class="active" href="login.html">Login</a>
+        <a href="/">Logout</a>
+        <div class="search-container">
+            <form action="/">
+                <input type="text" placeholder="Search.." name="search">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+    </nav>
+    <main>
+        <div class="row">
+            <form class="login_form" method="" action="">
+                <h1 class="auction_title">Login</h1>
+                <input type="text" placeholder="Username" value="henk@gmail.com" />
+                <input type="password" placeholder="Password" value="henk123" />
+
+                <input type="submit" value="Login" />
+                <a href="register.html">Register</a>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>

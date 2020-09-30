@@ -9,7 +9,7 @@ const users = require('../../data/userData');
 // @acces Public
 router.post('/', async (req, res) => {
 	const { username, email, password } = req.body;
-
+	console.log(req.body);
 	if (username === undefined) {
 		res.status(404).json({ msg: 'Email or username not filled in' });
 	}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Saxion Auction site</title>
+    <link rel="stylesheet" href="public/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="./page/index.js" type="module"></script>
+</head>
+<body>
+
+<header>
+    <div class="banner_image"></div>
+</header>
+<!-- Don't forget to only show the options you are allowed to see-->
+<nav class="auction_nav">
+    <a class="active" href="index.html">Home</a>
+    <a href="bids.html">My bids</a>
+    <a href="administration.html">Administration</a>
+    <a href="login.html">Login</a>
+    <a href="/">Logout</a>
+    <div class="search-container">
+        <form action="/">
+            <input type="text" placeholder="Search.." name="search">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+</nav>
+<main>
+    <div class="row">
+        <section class="auction_box">
+            <a class="auction_title" href="auction.html">Titel1</a>
+            <p class="auction_description">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat.
+            </p>
+            <div class="auction_bid">
+                <span class="auction_bid_price">50</span>
+                <span class="auction_bid_time">1 uur</span>
+            </div>
+        </section>
+        <section class="auction_box">
+            <a class="auction_title" href="auction.html">Titel2</a>
+            <p class="auction_description">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat.
+            </p>
+            <div class="auction_bid">
+                <span class="auction_bid_price">50</span>
+                <span class="auction_bid_time">1 uur</span>
+            </div>
+        </section>
+        <section class="auction_box">
+            <a class="auction_title" href="auction.html">Titel3</a>
+            <p class="auction_description">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat.
+            </p>
+            <div class="auction_bid">
+                <span class="auction_bid_price">50</span>
+                <span class="auction_bid_time">1 uur</span>
+            </div>
+        </section>
+        <section class="auction_box">
+            <a class="auction_title" href="auction.html">Titel4</a>
+            <p class="auction_short_description">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+            <div class="auction_bid">
+                <span class="auction_bid_price">50</span>
+                <span class="auction_bid_time">1 uur</span>
+            </div>
+        </section>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Saxion Auction site</title>
+    <link rel="stylesheet" href="public/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="./page/administration.js" type="module"></script>
+</head>
+<body>
+
+<header>
+    <div class="banner_image"></div>
+</header>
+<!-- Don't forget to only show the options you are allowed to see-->
+<nav class="auction_nav">
+    <!--        <img src="public/logo.svg"/>-->
+    <a href="index.html">Home</a>
+    <a href="bids.html">My bids</a>
+    <a class="active" href="administration.html">Administration</a>
+    <a href="login.html">Login</a>
+    <a href="/">Logout</a>
+    <div class="search-container">
+        <form action="/">
+            <input type="text" placeholder="Search.." name="search">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+</nav>
+<main>
+    <div class="row">
+        <h1 class="auction_title">Add, update or delete auctions</h1>
+    </div>
+    <div class="row">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>End time</th>
+                <th>Actions</th>
+            </tr>
+            <tr>
+                <td>Auction 1</td>
+                <td>14:00 uur</td>
+                <td>
+                    <i class="fa fa-pencil"></i>
+                    <i class="fa fa-trash"></i>
+                </td>
+            </tr>
+            <tr>
+                <td>Auction 2</td>
+                <td>15:00 uur</td>
+                <td>
+                    <i class="fa fa-pencil"></i>
+                    <i class="fa fa-trash"></i>
+                </td>
+            </tr>
+            <tr>
+                <td>Auction 1</td>
+                <td>16:00 uur</td>
+                <td>
+                    <i class="fa fa-pencil"></i>
+                    <i class="fa fa-trash"></i>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="row">
+        <form class="auction_form" method="" action="">
+            <h1 class="auction_title">Add an auction</h1>
+            <input type="text" placeholder="Name" name="name"/>
+            <input type="text" placeholder="Description" name="description"/>
+            <input type="text" placeholder="End time" name="end_time"/>
+            <input type="submit" value="Add"/>
+        </form>
+    </div>
+</main>
+</body>
+</html>

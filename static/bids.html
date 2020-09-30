@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Saxion Auction site</title>
+    <link rel="stylesheet" href="public/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="./page/bids.js" type="module"></script>
+</head>
+<body>
+
+<header>
+    <div class="banner_image"></div>
+</header>
+<!-- Don't forget to only show the options you are allowed to see-->
+<nav class="auction_nav">
+    <!--        <img src="public/logo.svg"/>-->
+    <a href="index.html">Home</a>
+    <a class="active" href="bids.html">My bids</a>
+    <a href="administration.html">Administration</a>
+    <a href="login.html">Login</a>
+    <a href="/">Logout</a>
+    <div class="search-container">
+        <form action="/">
+            <input type="text" placeholder="Search.." name="search">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+</nav>
+<main>
+    <div class="row">
+        <h1 class="auction_title">My bids</h1>
+    </div>
+    <div class="row">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Time</th>
+                <th>Is best bid?</th>
+                <th>Remove</th>
+            </tr>
+            <tr>
+                <td>Auction 1</td>
+                <td>50</td>
+                <td>14:00 uur</td>
+                <td>Yes</td>
+                <td>
+                    <i class="fa fa-trash"></i>
+                </td>
+            </tr>
+            <tr>
+                <td>Auction 1</td>
+                <td>45</td>
+                <td>13:50 uur</td>
+                <td>No</td>
+                <td>
+                    <i class="fa fa-trash"></i>
+                </td>
+            </tr>
+            <tr>
+                <td>Auction 1</td>
+                <td>10</td>
+                <td>13:30 uur</td>
+                <td>No</td>
+                <td>
+                    <i class="fa fa-trash"></i>
+                </td>
+            </tr>
+        </table>
+    </div>
+</main>
+</body>
+</html>
