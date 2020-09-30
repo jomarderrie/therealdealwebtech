@@ -3,7 +3,7 @@ const { v4: uuidv4 } = require('uuid');
 const items = [
 	{
 		id: 1,
-		title: 'Dillon Boy - Superman',
+		title: 'Dillon Boy - Superman eye',
 		date: '2020-04-09',
 		auction_end: '2020-12-09',
 		price: 29,
@@ -80,14 +80,14 @@ const items = [
 	},
 	{
 		id: uuidv4(),
-		title: 'locke, Old medical atlas, illustration Digital Image, 64',
+		title: 'locke, Old medical atlas, illustration Digital Image, 64 eye',
 		date: '2020-04-09',
 		auction_end: '2020-12-09',
 		price: 49,
 		bidder: null,
 		img: './images/auction8.jpg',
 		location: 'Deventer',
-		technique: 'Ink drawing'
+		technique: 'digital'
 	},
 	{
 		id: uuidv4(),

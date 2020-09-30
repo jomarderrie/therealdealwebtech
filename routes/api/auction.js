@@ -1,19 +1,19 @@
 let auction_items = require('../../data/auctionData');
 
+const StatusCodes = require('http-status-codes');
 const express = require('express');
 const { Router } = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
 const { v4: uuidv4 } = require('uuid');
 
-// @route    GET api/auction/:search
+// @route    GET api/auction/
 // @desc     Display a list of auctionable products or services. It should be possible to search the list of auctions with logical filters.
 // @access   Public
 // @param search
 // @param price
 // @param location
 // @param technique
-
 router.get('', (req, res) => {
 	const { search, location, price, technique } = req.query;
 	let auctionItems = [ ...auction_items ];
@@ -32,6 +32,7 @@ router.get('', (req, res) => {
 			return lowerCaseLocation === location.toLowerCase();
 		});
 	}
+
 	//price
 	if (price !== undefined) {
 		let parsedPrice = parseInt(price);
@@ -42,6 +43,7 @@ router.get('', (req, res) => {
 			return item.price <= parsedPrice;
 		});
 	}
+
 	//technique
 	if (technique !== undefined) {
 		let techniqueLowerCase = technique.toLowerCase();
@@ -50,28 +52,28 @@ router.get('', (req, res) => {
 		});
 	}
 
-	//if nothing is defined lets give all the items.
-	//else if the search didnt find us anything
-	//else give the items found
+	//if none of parameters are defined --> give all the items.
+	//else if the search didnt find us anything --> error no items found
+	//else give the items found --> show the found items
 	if (search === undefined && location === undefined && price === undefined && technique === undefined) {
-		res.status(200).json({ auctionItems: auctionItems });
+		res.status(StatusCodes.OK).json({ auctionItems: auctionItems });
 	} else if (auctionItems.length === 0) {
 		//return empty array
-		res.status(404).json({ error: 'No auction items founds' });
+		res.status(StatusCodes.NOT_FOUND).json({ NoItemsFound: 'No auction items found' });
 	} else {
-		res.status(200).json({ auctionItems: auctionItems });
+		res.status(StatusCodes.OK).json({ auctionItems: auctionItems });
 	}
 });
 
 // @route    GET api/auction/won
 // @desc     I want to see a list of all auctions I won
 // @access   Public
-router.get('/won', auth, (req, res) => {
+router.get('/won',auth, (req, res) => {
 	let wonItems = auction_items.filter((item) => item.bidder === req.user.username);
-	if (wonItems.length == 0) {
-		res.status(404).json({ error: 'No won auction items founds' });
+	if (wonItems.length === 0) {
+		res.status(StatusCodes.NOT_FOUND).json({ NoItemsFound: 'No won auction items found' });
 	} else {
-		res.status(200).json({ wonAuctionItems: wonItems });
+		res.status(StatusCodes.OK).json({ wonAuctionItems: wonItems });
 	}
 });
 
@@ -83,10 +85,10 @@ router.post('/', auth, (req, res) => {
 	let responseObject = [];
 	//lets first check if we actually have an admin
 	if (req.user.role !== 'admin') {
-		return res.status(404).json({ msg: 'Not admin Not alowed' });
+		return res.status(StatusCodes.UNAUTHORIZED).json({ msg: 'Not admin Not alowed' });
 	}
 
-	//if not all parameters all valid in send invalid request
+	//if not all parameters are send in send invalid request
 	if (
 		title === undefined ||
 		location === undefined ||
@@ -94,7 +96,7 @@ router.post('/', auth, (req, res) => {
 		img === undefined ||
 		auction_end === undefined
 	) {
-		return res.status(404).json({ msg: 'bad request not all fields filled in ' });
+		return res.status(StatusCodes.BAD_REQUEST).json({ msg: 'bad request not all fields filled in ' });
 	}
 
 	let now = parseInt(new Date().toISOString().slice(0, 10).replace(/-/g, ''));

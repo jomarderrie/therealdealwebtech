@@ -24,9 +24,7 @@ app.use('/bid', bidRoute);
 app.use('/register', registerRoute);
 //routes
 
-app.get('/', (req, res) => {
-	res.send('Hello welcome by assigment1!');
-});
+app.use(express.static('./static'))
 
 app.listen(port, () => {
 	console.log(`app listening at http://localhost:${port}`);

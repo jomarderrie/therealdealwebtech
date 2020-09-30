@@ -1,25 +1,30 @@
-const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-// @route    GET api/auth
+const jwt = require('jsonwebtoken');
+const StatusCodes = require('http-status-codes');
+
+
+
 // @desc     Get user by token
 // @access   Private
-
-function authenticateToken(req, res, next) {
+// https://stackoverflow.com/questions/7042340/error-cant-set-headers-after-they-are-sent-to-the-client
+  function authenticateToken(req, res, next) {
 	//get token from header
 	const authHeader = req.headers['authorization'];
 	const token = authHeader && authHeader.split(' ')[2];
 	//check if token exist
+	 console.log(token)
 	if (token == null) {
-		return res.sendStatus(401).json({ msg: 'Try to login again' });
+		return res.status(401).json({ error: 'Try to login again' });
 	}
 	//verify token
-	jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+	 jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
 		if (err) {
-			return res.sendStatus(403).json({ msg: 'Invalid json token' });
+			return res.status(403).json({ error: 'Invalid json token' });
 		}
-		req.user = user;
-		next();
+		 req.user = user;
+			next();		return res.status(403).json({ error: 'Invalasdadid json token' });
+
 	});
 }
 

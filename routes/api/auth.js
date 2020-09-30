@@ -17,15 +17,15 @@ router.post('/', async (req, res) => {
 	}
 	try {
 		if (await bcrypt.compare(req.body.password, user.password)) {
-			const accesToken = jwt.sign(
+			const accessToken = jwt.sign(
 				{
 					username: user.username,
 					role: user.role
 				},
-				process.env.ACCESS_TOKEN_SECRET,
-				{ expiresIn: '1d' }
+				process.env.ACCESS_TOKEN_SECRET
+
 			);
-			res.status(200).json({ token: accesToken });
+			res.status(200).json({ token: accessToken });
 		} else {
 			res.status(400).json({ msg: 'Invalid info' });
 		}

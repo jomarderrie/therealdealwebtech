@@ -29,9 +29,6 @@ Content-Type: application/json
     "password":"admin"
 }
 
-//https://www.jetbrains.com/help/phpstorm/http-response-handling-examples.html#checking-response-headers-body
-# > {%
-# client.global.set("user_token", response.body.token)
-# %}
+
 
 

@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
 		}
 	});
 
-	if (userExist != undefined) {
+	if (userExist !== undefined) {
 		res.status(404).json({ msg: 'Email or username already exist' });
 	} else {
 		const saltRounds = 10;

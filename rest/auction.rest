@@ -1,9 +1,8 @@
-GET http://localhost:3000/auction
 
 ### get all auctions
 GET http://localhost:3000/auction
 
-### search for an item search = eye
+### search for an item with the search term eye into it search = eye
 GET http://localhost:3000/auction?search=eye
 
 ### search for an item under the price of 48
@@ -15,6 +14,60 @@ GET http://localhost:3000/auction?location=utrecht
 ### search for an given technique = digital
 GET http://localhost:3000/auction?technique=digital
 
-### invalid logical search
-GET http://localhost:3000/auction/?search=deeznuts
+### multiple parameter search
+GET http://localhost:3000/auction?technique=digital&price=20&search=eye
 
+### invalid logical search
+GET http://localhost:3000/auction/?search=ok
+
+### invalid logical price search
+GET http://localhost:3000/auction?price=-48
+
+### invalid location search
+GET http://localhost:3000/auction?location=londen
+
+### invalid technique search
+GET http://localhost:3000/auction?technique=monas
+
+### invalid multiple search
+GET http://localhost:3000/auction?technique=digital&price=20&search=tri
+
+### login as standard user
+POST http://localhost:3000/auth
+Content-Type: application/json
+Accept: application/json
+
+{
+"username":"henk",
+"email":"henk@gmail.com",
+"password":"henk123"
+}
+> {%
+client.global.set("token", response.body.token);
+
+client.test("Request executed succesfully", function(){
+    client.assert(response.status === 200, "Response status is not 200, "  + response.status)
+});
+
+client.test("Check body" , function(){
+    client.assert(response.body.token, "There is no JSON token")
+});
+
+client.test("Response content-type is json" , function(){
+    var type = response.contentType.mimeType;
+    client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'" )
+})
+%}
+#https://stackoverflow.com/questions/7042340/error-cant-set-headers-after-they-are-sent-to-the-client
+### auctions won of a certain user
+GET http://localhost:3000/auction/won/
+Authorization: Bearer {{token}}
+
+> {%
+ client.test("Request executed succesfully", function(){
+    client.assert(response.status === 200, "Response status is not 200, "  + response.status)
+});
+ client.test("Check body" , function(){
+    client.assert(response.body.token, "There is no JSON token")
+});
+ %}
