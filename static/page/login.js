@@ -17,11 +17,13 @@ loginButton.addEventListener('click', (event) => {
 	sendJSON({ method: 'POST', url: '/auth', body }, (err, response) => {
 		// if err is undefined, the send operation was a success
 		if (!err) {
+			console.log(response);
 			saveToken(response.token);
 			window.location.href = 'auction.html';
 		} else {
 			var tag = document.createElement('div');
-			var text = document.createTextNode('Looks like we have an error try to login again');
+
+			var text = document.createTextNode(err + ' try to login again ');
 			tag.setAttribute('class', 'myclass');
 			tag.style.color = 'red';
 			tag.append(text);
@@ -32,9 +34,6 @@ loginButton.addEventListener('click', (event) => {
 			var element = document.getElementsByClassName('login_form')[0];
 
 			element.append(tag);
-
-			// TODO report error message in user-interface
-			console.error(err);
 		}
 	});
 });
