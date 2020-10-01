@@ -3,21 +3,22 @@ const router = express.Router();
 const { v4: uuidv4 } = require('uuid');
 const bcrypt = require('bcrypt');
 const users = require('../../data/userData');
+const StatusCodes = require('http-status-codes');
 
-// @route POST /user/
+// @route POST /register/
 // @desc As a user I want to be able to register (email address and password)
 // @acces Public
 router.post('/', async (req, res) => {
 	const { username, email, password } = req.body;
 	console.log(req.body);
 	if (username === undefined) {
-		res.status(404).json({ msg: 'Email or username not filled in' });
+		return res.status(404).json({ msg: 'Email or username not filled in' });
 	}
 	if (email === undefined) {
-		res.status(404).json({ msg: 'Email or username not filled in' });
+		return res.status(404).json({ msg: 'Email or username not filled in' });
 	}
 	if (password === undefined) {
-		res.status(404).json({ msg: 'Email or username not filled in' });
+		return res.status(404).json({ msg: 'Email or username not filled in' });
 	}
 
 	let responseObject = [];
@@ -28,7 +29,7 @@ router.post('/', async (req, res) => {
 	});
 
 	if (userExist !== undefined) {
-		res.status(404).json({ msg: 'Email or username already exist' });
+		return res.status(404).json({ msg: 'Email or username already exist' });
 	} else {
 		const saltRounds = 10;
 		const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -40,7 +41,8 @@ router.post('/', async (req, res) => {
 			role: 'user'
 		};
 		users.push(responseObject);
-		res.status(201).json({ user: responseObject });
+		console.log(users);
+		return res.status(StatusCodes.OK).json({ user: responseObject });
 	}
 });
 

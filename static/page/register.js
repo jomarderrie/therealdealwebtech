@@ -10,29 +10,38 @@ const loginForm = document.querySelector('main form'),
 registerButton.addEventListener('click', (event) => {
 	event.preventDefault();
 	const body = {
-		user: usernameField.value,
+		username: usernameField.value,
 		password: password.value,
-		password: password2.value,
+		password2: password2.value,
 		email: eMail.value
 	};
 
-	sendJSON({ method: 'POST', url: '/user', body }, (err, resp) => {
+	sendJSON({ method: 'POST', url: '/register', body }, (err, resp) => {
 		// if err is undefined, the send operation was a success
 		if (!err) {
-			window.location.href = 'auction.html';
+			window.location.href = 'index.html';
+			setTimeout(function() {
+				var tag = document.createElement('div');
+				var text = document.createTextNode(' register succesfull ');
+				tag.setAttribute('class', 'registerSucces');
+				tag.style.background = 'green';
+				tag.style.display = 'relative';
+				tag.append(text);
+				tag.style.width = '100px';
+				tag.style.height = '100px';
+				tag.appendChild(text);
+				var element = document.getElementsByClassName('row')[0];
+				element.append(tag);
+			}, 1000);
 		} else {
 			var tag = document.createElement('div');
-
 			var text = document.createTextNode(err + ' try to register again ');
 			tag.setAttribute('class', 'myclass');
 			tag.style.color = 'red';
 			tag.append(text);
 			tag.style.paddingTop = '15px';
-
 			tag.appendChild(text);
-
 			var element = document.getElementsByClassName('register_form')[0];
-
 			element.append(tag);
 		}
 	});
@@ -40,27 +49,27 @@ registerButton.addEventListener('click', (event) => {
 
 function validateRegister() {
 	let email = validateEmail(eMail);
-	if (email == true) {
-	}
-	console.log(email);
-	// const usernameOk = usernameField.value.length > 0,
-	//     passwordOk = passwordField.value.length > 0,
+	let passCheck = validatePassword(password);
+	let passwordRepeatCheck = password.value == password2.value && true;
+	usernameField.value.length <= 0 ? usernameField.classList.add('bad') : usernameField.classList.remove('bad');
+	let usernameFieldCheck = usernameField.value.length <= 0 ? false : true;
 
-	//     loginOk = usernameOk && passwordOk;
-	//    let validateEmail = validateEmail();
+	let booleanCheck = email && passCheck && passwordRepeatCheck && usernameFieldCheck;
 
-	// // provide visual feedback for controls in a 'bad' state
-	// validateInputControl(usernameField, usernameOk);
-	// validateInputControl(passwordField, passwordOk);
-	// validateInputControl(password, loginOk);
-
-	// enable/disable click of login button
-	// registerButton.disabled = !loginOk;
+	registerButton.disabled = !booleanCheck;
 }
 
-//DONT STOP DELETING MY REGEX
-//^[^@]+@[^@]+\.(nl|com)[^@]+$
-//sometimes auto save deletes it
+function validatePassword(element) {
+	let regex = RegExp(`^(?=.*?[0-9])(?=.*[A-Z]).{6,18}$`, 'gm');
+	if (regex.test(element.value)) {
+		element.classList.remove('bad');
+		return true;
+	} else {
+		element.classList.add('bad');
+		return false;
+	}
+}
+
 function validateEmail(element) {
 	let regex = RegExp(`^[^@]+@[^@]+\.(nl$|com$)`, 'gm');
 	if (regex.test(element.value)) {

@@ -25,12 +25,12 @@ router.post('/', async (req, res) => {
 				},
 				process.env.ACCESS_TOKEN_SECRET
 			);
-			res.status(StatusCodes.OK).json({ token: accessToken });
+			return res.status(StatusCodes.OK).json({ token: accessToken });
 		} else {
-			res.status(StatusCodes.BAD_REQUEST).json({ error: 'Invalid info' });
+			return res.status(StatusCodes.BAD_REQUEST).json({ error: 'Invalid info' });
 		}
 	} catch (err) {
-		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Internal server error' });
+		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Internal server error' });
 	}
 });
 

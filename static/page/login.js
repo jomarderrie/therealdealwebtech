@@ -17,9 +17,18 @@ loginButton.addEventListener('click', (event) => {
 	sendJSON({ method: 'POST', url: '/auth', body }, (err, response) => {
 		// if err is undefined, the send operation was a success
 		if (!err) {
-			console.log(response);
 			saveToken(response.token);
-			window.location.href = 'auction.html';
+			window.location.href = 'index.html';
+			var tag = document.createElement('div');
+			tag.innerHTML = '<p>register succesfull<p>';
+			tag.setAttribute('class', 'registerSucces');
+			tag.style.background = 'green';
+			tag.style.display = 'relative';
+			tag.style.width = '100px';
+			tag.style.height = '100px';
+
+			var element = document.getElementsByClassName('row')[0];
+			element.append(tag);
 		} else {
 			var tag = document.createElement('div');
 
@@ -37,7 +46,6 @@ loginButton.addEventListener('click', (event) => {
 		}
 	});
 });
-// add error
 
 // validate login form
 function validateForm() {
