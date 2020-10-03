@@ -7,9 +7,10 @@ const router = express.Router();
 const auth = require('../../middleware/auth');
 const { v4: uuidv4 } = require('uuid');
 
+const jwt = require('jsonwebtoken');
 // @route    GET api/auction/
 // @desc     Display a list of auctionable products or services. It should be possible to search the list of auctions with logical filters.
-// @access   Public
+// @access Public
 // @param search
 // @param price
 // @param location
@@ -21,7 +22,7 @@ router.get('', (req, res) => {
 	//search for auctionItems with a given keyword in it
 	if (search !== undefined) {
 		auctionItems = auctionItems.filter(({ title }) => {
-			return title.toLowerCase().indexOf(search.toLowerCase()) != -1;
+			return title.toLowerCase().indexOf(search.toLowerCase()) !== -1;
 		});
 	}
 
@@ -68,14 +69,38 @@ router.get('', (req, res) => {
 // @route    GET api/auction/won
 // @desc     I want to see a list of all auctions I won
 // @access   Public
-router.get('/won',auth, (req, res) => {
-	let wonItems = auction_items.filter((item) => item.bidder === req.user.username);
+router.get('/won', auth, (req, res) => {
+	let auctionItems = [ ...auction_items ];
+	//check if the auction ended and if the user matches
+	let wonItems = auctionItems.filter((item) =>
+											((item.bidder === req.user.username) &&
+												(parseInt(item.auction_end.split('-').join(''))<parseInt(new Date().toISOString().slice(0, 10).replace(/-/g, '')))));
+
 	if (wonItems.length === 0) {
-		res.status(StatusCodes.NOT_FOUND).json({ NoItemsFound: 'No won auction items found' });
+		return res.status(StatusCodes.NOT_FOUND).json({ NoItemsFound: 'No won auction item found' });
 	} else {
-		res.status(StatusCodes.OK).json({ wonAuctionItems: wonItems });
+		return res.status(StatusCodes.OK).json({ wonAuctionItems: wonItems });
 	}
 });
+
+// @route    GET api/auction/:id
+// @desc     get an element with an certain id
+// @access   Public
+router.get("/:name", (req,res) =>{
+	let  title2  = req.params.name;
+	let auctionItems2 = [ ...auction_items ];
+	console.log(title2)
+	//search for auctionItems with a given keyword in it
+	auctionItems2 = auctionItems2.filter(({ title }) => {
+		return (title.toLowerCase().indexOf(title2.toLowerCase())) !== -1;
+		});
+
+	if (auctionItems2.length>0 && auctionItems2.length<auction_items.length){
+		return res.status(StatusCodes.OK).json({'auctionItems': auctionItems2})
+	}else{
+		return res.status(StatusCodes.NOT_FOUND).json({ NoItemsFound: 'No Item Found' });
+	}
+})
 
 // @route    POST api/auction/
 // @desc     I want to add new auctions as a admin.
@@ -85,7 +110,7 @@ router.post('/', auth, (req, res) => {
 	let responseObject = [];
 	//lets first check if we actually have an admin
 	if (req.user.role !== 'admin') {
-		return res.status(StatusCodes.UNAUTHORIZED).json({ msg: 'Not admin Not alowed' });
+		return res.status(StatusCodes.UNAUTHORIZED).json({ error: 'Not admin Not alowed' });
 	}
 
 	//if not all parameters are send in send invalid request
@@ -96,13 +121,15 @@ router.post('/', auth, (req, res) => {
 		img === undefined ||
 		auction_end === undefined
 	) {
-		return res.status(StatusCodes.BAD_REQUEST).json({ msg: 'bad request not all fields filled in ' });
+		return res.status(StatusCodes.BAD_REQUEST).json({ error: 'bad request not all fields filled in ' });
 	}
 
 	let now = parseInt(new Date().toISOString().slice(0, 10).replace(/-/g, ''));
 	let itemDate = parseInt(auction_end.split('-').join(''));
+
 	if (itemDate < now) {
-		return res.status(404).json({ msg: 'The auction already ended' });
+		return res.status(StatusCodes.NOT_FOUND).json({ error: 'The auction' +
+				' already ended' });
 	}
 
 	//looks like everything is okay lets add the auction to the list of auctions.
@@ -119,7 +146,7 @@ router.post('/', auth, (req, res) => {
 	};
 
 	auction_items.push(responseObject);
-	res.status(201).json({ 'added action item': responseObject });
+	res.status(StatusCodes.OK).json({ AddedItem: responseObject });
 });
 
 // @route    POST api/auction/
@@ -131,22 +158,28 @@ router.delete('/', auth, (req, res) => {
 
 	//lets first check if we actually have an admin
 	if (req.user.role !== 'admin') {
-		return res.status(404).json({ msg: 'Not admin Not alowed' });
+		return res.status(StatusCodes.UNAUTHORIZED).json({ error: 'Not admin' +
+				' Not alowed' });
 	}
+
 	//lets find the item
 	let item = auction_items.find(({ id }, index) => {
 		indexItem = index;
 		return id === parseInt(itemId);
 	});
+
 	//if there is no item no item found
 	if (item === undefined) {
-		return res.status(404).json({ msg: 'Item not found' });
+		return res.status(StatusCodes.NOT_FOUND).json({ error: 'Item not' +
+				' found' });
 	}
 
+	//return the items
 	auction_items = auction_items.filter((item) => parseInt(item.id) !== parseInt(itemId));
-	console.log(auction_items);
-	return res.status(404).json({ items: auction_items });
+	return res.status(StatusCodes.OK).json({ items: auction_items });
 });
+
+
 
 // @route    PUT api/auction/
 // @desc     I want to modify auctions as a admin.
@@ -154,11 +187,11 @@ router.delete('/', auth, (req, res) => {
 router.put('/', auth, (req, res) => {
 	let indexItem;
 	let itemId = req.body.id;
-	const { title, auction_end, img, location, technique, id } = req.body;
 
 	//lets first check if we actually have an admin
 	if (req.user.role !== 'admin') {
-		return res.status(404).json({ msg: 'Not admin Not alowed' });
+		return res.status(StatusCodes.UNAUTHORIZED).json({ error: 'Not admin' +
+				' Not alowed' });
 	}
 
 	//lets find the item
@@ -168,16 +201,26 @@ router.put('/', auth, (req, res) => {
 	});
 	//if there is no item no item found
 	if (item === undefined) {
-		return res.status(404).json({ msg: 'Item not found' });
+		return res.status(StatusCodes.NOT_FOUND).json({ error: 'Item not' +
+				' found' });
+	}
+	if(Object.keys(req.body).length < 2){
+		return res.status(StatusCodes.NOT_FOUND).json({ error: 'Nothing to change '
+				 });
 	}
 	//the keys on which we want to check on
 	let keys = [ 'title', 'auction_end', 'img', 'location', 'technique', 'price' ];
 	//lets change the array
 	Object.keys(req.body).forEach((key) => {
-		if (keys.includes(key)) auction_items[indexItem][key] = req.body[key];
+		if (keys.includes(key)){
+			auction_items[indexItem][key] = req.body[key];
+		}
 	});
 
-	res.status(200).json({ auction_items: auction_items });
+	res.status(StatusCodes.OK).json({ auction_items: auction_items[indexItem] });
 });
+
+
+
 
 module.exports = router;

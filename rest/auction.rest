@@ -1,66 +1,144 @@
 
 ### get all auctions
 GET http://localhost:3000/auction
+Content-Type: application/json
+
+> {%
+ client.test("Request executed succesfully", function(){
+    client.assert(response.status === 200, "Response status is not 200, "  + response.status)
+});
+ client.test("Check body" , function(){
+    client.assert(response.body.auctionItems, "There is no items")
+});
+ %}
+
 
 ### search for an item with the search term eye into it search = eye
 GET http://localhost:3000/auction?search=eye
+Content-Type: application/json
+
+> {%
+ client.test("Request executed succesfully", function(){
+    client.assert(response.status === 200, "Response status is not 200, "  + response.status)
+});
+ client.test("Check body" , function(){
+    client.assert(response.body.auctionItems, "There is no items")
+});
+ %}
 
 ### search for an item under the price of 48
 GET http://localhost:3000/auction?price=48
-
-### search for an given location = utrecht
-GET http://localhost:3000/auction?location=utrecht
-
-### search for an given technique = digital
-GET http://localhost:3000/auction?technique=digital
-
-### multiple parameter search
-GET http://localhost:3000/auction?technique=digital&price=20&search=eye
-
-### invalid logical search
-GET http://localhost:3000/auction/?search=ok
-
-### invalid logical price search
-GET http://localhost:3000/auction?price=-48
-
-### invalid location search
-GET http://localhost:3000/auction?location=londen
-
-### invalid technique search
-GET http://localhost:3000/auction?technique=monas
-
-### invalid multiple search
-GET http://localhost:3000/auction?technique=digital&price=20&search=tri
-
-### login as standard user
-POST http://localhost:3000/auth
 Content-Type: application/json
-Accept: application/json
 
-{
-"username":"henk",
-"email":"henk@gmail.com",
-"password":"henk123"
-}
 > {%
-client.global.set("token", response.body.token);
-
-client.test("Request executed succesfully", function(){
+ client.test("Request executed succesfully", function(){
     client.assert(response.status === 200, "Response status is not 200, "  + response.status)
 });
-
-client.test("Check body" , function(){
-    client.assert(response.body.token, "There is no JSON token")
+ client.test("Check body" , function(){
+    client.assert(response.body.auctionItems, "There is no items")
 });
+ %}
+### search for an given location = utrecht
+GET http://localhost:3000/auction?location=utrecht
+Content-Type: application/json
 
-client.test("Response content-type is json" , function(){
-    var type = response.contentType.mimeType;
-    client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'" )
-})
-%}
-#https://stackoverflow.com/questions/7042340/error-cant-set-headers-after-they-are-sent-to-the-client
+> {%
+ client.test("Request executed succesfully", function(){
+    client.assert(response.status === 200, "Response status is not 200, "  + response.status)
+});
+ client.test("Check body" , function(){
+    client.assert(response.body.auctionItems, "There is no items")
+});
+ %}
+### search for an given technique = digital
+GET http://localhost:3000/auction?technique=digital
+Content-Type: application/json
+
+> {%
+ client.test("Request executed succesfully", function(){
+    client.assert(response.status === 200, "Response status is not 200, "  + response.status)
+});
+ client.test("Check body" , function(){
+    client.assert(response.body.auctionItems, "There is no items")
+});
+ %}
+### multiple parameter search
+GET http://localhost:3000/auction?technique=digital&price=20&search=eye
+Content-Type: application/json
+
+> {%
+ client.test("Request executed succesfully", function(){
+    client.assert(response.status === 200, "Response status is not 200, "  + response.status)
+});
+ client.test("Check body" , function(){
+    client.assert(response.body.auctionItems, "There is no items")
+});
+ %}
+### invalid logical search
+GET http://localhost:3000/auction/?search=ok
+Content-Type: application/json
+
+> {%
+ client.test("Request executed succesfully", function(){
+    client.assert(response.status === 404, "Response status is not 200, "  + response.status)
+});
+ client.test("Check body" , function(){
+    client.assert(response.body.NoItemsFound, "There is no items")
+});
+ %}
+### invalid logical price search
+GET http://localhost:3000/auction?price=-48
+Content-Type: application/json
+
+> {%
+ client.test("Request executed succesfully", function(){
+    client.assert(response.status === 404, "Response status is not 40, "  + response.status)
+});
+ client.test("Check body" , function(){
+    client.assert(response.body.NoItemsFound, "There is no items")
+});
+ %}
+### invalid location search
+GET http://localhost:3000/auction?location=londen
+Content-Type: application/json
+
+> {%
+ client.test("Request executed succesfully", function(){
+    client.assert(response.status === 404, "Response status is not 404, "  + response.status)
+});
+ client.test("Check body" , function(){
+    client.assert(response.body.NoItemsFound, "There is no items")
+});
+ %}
+### invalid technique search
+GET http://localhost:3000/auction?technique=monas
+Content-Type: application/json
+
+> {%
+ client.test("Request executed succesfully", function(){
+    client.assert(response.status === 404, "Response status is not 200, "  + response.status)
+});
+ client.test("Check body" , function(){
+    client.assert(response.body.NoItemsFound, "There is no items")
+});
+ %}
+### invalid multiple search
+GET http://localhost:3000/auction?technique=digital&price=20&search=tri
+Content-Type: application/json
+
+> {%
+ client.test("Request executed succesfully", function(){
+    client.assert(response.status === 404, "Response status is not 200, "  + response.status)
+});
+ client.test("Check body" , function(){
+    client.assert(response.body.NoItemsFound, "There is no items")
+});
+ %}
+
+
 ### auctions won of a certain user
 GET http://localhost:3000/auction/won/
+Content-Type: application/json
 Authorization: Bearer {{token}}
 
 > {%
@@ -68,6 +146,218 @@ Authorization: Bearer {{token}}
     client.assert(response.status === 200, "Response status is not 200, "  + response.status)
 });
  client.test("Check body" , function(){
-    client.assert(response.body.token, "There is no JSON token")
+    client.assert(response.body.wonAuctionItems, "There is no items")
 });
  %}
+
+### auctions won of a certain user invalid
+GET http://localhost:3000/auction/won/
+Content-Type: application/json
+Authorization: Bearer
+
+> {%
+ client.test("Request executed succesfully", function(){
+    client.assert(response.status === 401, "Response status is not 200, "  + response.status)
+});
+ client.test("Check body" , function(){
+    client.assert(response.body.error, "There is no items")
+});
+ %}
+
+### get a certain auction
+GET http://localhost:3000/auction/eye
+Content-Type: application/json
+
+> {%
+ client.test("Request executed succesfully", function(){
+    client.assert(response.status === 200, "Response status is not 200, "  + response.status)
+});
+ client.test("Check body" , function(){
+    client.assert(response.body.auctionItems, "There is no items")
+});
+ %}
+
+### get an invalid auction
+GET http://localhost:3000/auction/train
+Content-Type: application/json
+
+> {%
+ client.test("Request executed succesfully", function(){
+    client.assert(response.status === 404, "Response status is not 200, "  + response.status)
+});
+ client.test("Check body" , function(){
+    client.assert(response.body.NoItemsFound, "There is no items")
+});
+ %}
+
+
+
+### Admin add new auction
+POST http://localhost:3000/auction/
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{admin_token}}
+
+{
+"title":"descarts",
+"location":"utrecht",
+  "technique": "draw",
+  "img" : "./images/auction1.jpg",
+  "auction_end": "2021-10-03"
+}
+
+> {%
+ client.test("Request executed succesfully", function(){
+    client.assert(response.status === 200, "Response status is not 200, "  + response.status)
+});
+ client.test("Check body" , function(){
+    client.assert(response.body.AddedItem, "There is no items")
+});
+ %}
+
+### Admin add invalid auction (failed to fill in location)
+POST http://localhost:3000/auction/
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{admin_token}}
+
+{
+  "title":"descarts",
+  "technique": "draw",
+  "img" : "./images/auction1.jpg",
+  "auction_end": "2021-10-03"
+}
+
+> {%
+ client.test("Request executed succesfully", function(){
+    client.assert(response.status === 400, "Response status is not 400, "  + response.status)
+});
+ client.test("Check body" , function(){
+    client.assert(response.body.error, "There is no items")
+});
+ %}
+
+### Admin adds auction with invalid date
+POST http://localhost:3000/auction/
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{admin_token}}
+
+{
+  "title":"descarts",
+  "location":"utrecht",
+  "technique": "draw",
+  "img" : "./images/auction1.jpg",
+  "auction_end": "1990-10-03"
+}
+
+> {%
+ client.test("Request executed succesfully", function(){
+    client.assert(response.status === 404, "Response status is not 200, "  + response.status)
+});
+ client.test("Check body" , function(){
+    client.assert(response.body.error, "There is no items")
+});
+ %}
+
+### User adds auction (user not admin)
+POST http://localhost:3000/auction/
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title":"descarts",
+  "location":"utrecht",
+  "technique": "draw",
+  "img" : "./images/auction1.jpg",
+  "auction_end": "2050-10-03"
+}
+
+> {%
+ client.test("Request executed succesfully", function(){
+    client.assert(response.status === 401, "Response status is not 200, "  + response.status)
+});
+ client.test("Check body" , function(){
+    client.assert(response.body.error, "There is no items")
+});
+ %}
+
+### admin deletes auction
+DELETE http://localhost:3000/auction/
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{admin_token}}
+
+{
+  "id":"6"
+}
+
+> {%
+ client.test("Request executed succesfully", function(){
+    client.assert(response.status === 200, "Response status is not 200, "  + response.status)
+});
+ client.test("Check body" , function(){
+    client.assert(response.body.items, "There is no items")
+});
+ %}
+
+
+### admin tries to delete no existing id
+DELETE http://localhost:3000/auction/
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{admin_token}}
+
+{
+  "id":"abc"
+}
+
+> {%
+ client.test("Request executed succesfully", function(){
+    client.assert(response.status === 404, "Response status is not 200, "  + response.status)
+});
+ client.test("Check body" , function(){
+    client.assert(response.body.error, "There is no items")
+});
+ %}
+
+### admin edits a certain auctions
+PUT http://localhost:3000/auction/
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{admin_token}}
+
+{
+  "id":"5",
+  "title": "naphleon"
+}
+
+> {%
+ client.test("Request executed succesfully", function(){
+    client.assert(response.status === 200, "Response status is not 200, "  + response.status)
+});
+ client.test("Check body" , function(){
+    client.assert(response.body.auction_items, "There is no items")
+});
+ %}
+
+### admin only sends an id param(nothing to change)
+PUT http://localhost:3000/auction/
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{admin_token}}
+
+{
+  "id": "3"
+}
+
+> {%
+ client.test("Request executed succesfully", function(){
+    client.assert(response.status === 404, "Response status is not 200, "  + response.status)
+});
+ client.test("Check body" , function(){
+    client.assert(response.body.error, "There is no items")
+});
+ %}
+

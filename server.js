@@ -8,7 +8,7 @@ const bidRoute = require('./routes/api/bid');
 const registerRoute = require('./routes/api/user');
 //app
 const app = express();
-
+const Router = require('vanilla-router');
 //bodyparser
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(
@@ -24,7 +24,7 @@ app.use('/bid', bidRoute);
 app.use('/register', registerRoute);
 //routes
 
-app.use(express.static('./static'))
+app.use(express.static('./static'));
 
 app.listen(port, () => {
 	console.log(`app listening at http://localhost:${port}`);

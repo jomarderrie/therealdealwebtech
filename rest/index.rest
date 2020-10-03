@@ -1,3 +1,7 @@
+
+//set global state of tokens
+
+
 ### login as standard user
 POST http://localhost:3000/auth
 Content-Type: application/json
@@ -10,6 +14,7 @@ Accept: application/json
 }
 
 > {%
+client.global.set("token", response.body.token);
  client.test("Request executed succesfully", function(){
     client.assert(response.status === 200, "Response status is not 200, "  + response.status)
 });
@@ -37,7 +42,7 @@ Accept: application/json
   "password":"henk123"
 }
 > {%
-
+client.global.set("admin_token", response.body.token);
 client.test("Request executed succesfully", function(){
     client.assert(response.status === 200, "Response status is not 200, "  + response.status)
 });
@@ -51,5 +56,4 @@ client.test("Response content-type is json" , function(){
     client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'" )
 })
 %}
-
 

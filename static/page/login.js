@@ -26,7 +26,6 @@ loginButton.addEventListener('click', (event) => {
 			tag.style.display = 'relative';
 			tag.style.width = '100px';
 			tag.style.height = '100px';
-
 			var element = document.getElementsByClassName('row')[0];
 			element.append(tag);
 		} else {

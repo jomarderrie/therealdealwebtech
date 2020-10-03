@@ -10,15 +10,18 @@ const StatusCodes = require('http-status-codes');
 // @acces Public
 router.post('/', async (req, res) => {
 	const { username, email, password } = req.body;
-	console.log(req.body);
+
 	if (username === undefined) {
-		return res.status(404).json({ msg: 'Email or username not filled in' });
+		return res.status(StatusCodes.NOT_FOUND).json({ error: 'Email or' +
+				' username not filled in' });
 	}
 	if (email === undefined) {
-		return res.status(404).json({ msg: 'Email or username not filled in' });
+		return res.status(StatusCodes.NOT_FOUND).json({ error: 'Email or' +
+				' username not filled in' });
 	}
 	if (password === undefined) {
-		return res.status(404).json({ msg: 'Email or username not filled in' });
+		return res.status(StatusCodes.NOT_FOUND).json({ error: 'Email or' +
+				' username not filled in' });
 	}
 
 	let responseObject = [];
@@ -29,7 +32,7 @@ router.post('/', async (req, res) => {
 	});
 
 	if (userExist !== undefined) {
-		return res.status(404).json({ msg: 'Email or username already exist' });
+		return res.status(StatusCodes.NOT_FOUND).json({ error: 'Email or username already exist' });
 	} else {
 		const saltRounds = 10;
 		const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -41,8 +44,7 @@ router.post('/', async (req, res) => {
 			role: 'user'
 		};
 		users.push(responseObject);
-		console.log(users);
-		return res.status(StatusCodes.OK).json({ user: responseObject });
+		return res.status(StatusCodes.OK).json({ ok: "User registered" });
 	}
 });
 

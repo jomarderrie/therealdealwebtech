@@ -298,7 +298,5 @@ table i {
 	width: 100px;
 	height: 100px;
 	background: green;
-	/* top: 80px;
-	right: 200px; */
 	display: relative;
 }

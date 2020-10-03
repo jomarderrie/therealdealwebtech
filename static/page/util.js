@@ -20,20 +20,23 @@ export function sendJSON({ method, url, body }, callback) {
 }
 
 export function saveToken(token) {
-	// TODO: A token does not survive a page refresh!
-	// use a better mechanism to store tokens more permanently
+	console.log(token);
 	sessionToken = token;
+	localStorage.setItem('token', token);
 }
 
 function resetToken() {
 	// clear token when users logs out
+	window.location.href = 'login.html';
 	sessionToken = undefined;
+	localStorage.removeItem('token');
 }
 
 export function getTokenPayload() {
-	if (sessionToken) {
+	let jsonLocalStorageToken = localStorage.getItem('token').split('.')[1];
+	if (jsonLocalStorageToken) {
 		// extract JSON payload from token string
-		return JSON.parse(atob(sessionToken.split('.')[1]));
+		return JSON.parse(atob(jsonLocalStorageToken));
 	}
 	return undefined;
 }
@@ -46,3 +49,35 @@ export function validateInputControl(element, ok) {
 		element.classList.add('bad');
 	}
 }
+
+//extractpayloadfromtoken
+
+// export function search(){
+
+// }
+
+export function findElement(title){
+	return
+}
+export function redirect(url, method) {
+	var form = document.createElement('form');
+	form.method = method;
+	form.action = url;
+	form.submit();
+}
+
+function handleNavigation(query) {
+	console.log('DOM has loaded');
+	//create
+}
+
+window.onload = function() {
+	getTokenPayload();
+	console.log('DOM has loaded');
+};
+
+
+document.querySelector('nav').querySelectorAll('a')[4].addEventListener('click', resetToken);
+
+
+
