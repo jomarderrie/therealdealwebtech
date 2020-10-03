@@ -27,14 +27,13 @@ sendJSON({ method: 'get', url: '/auction' }, (err, resp) => {
 	}
 });
 
-function createSection({ title, date, price, description }) {
-	console.log(title);
+function createSection({ title, date, price, description}) {
 	//create section element
 	let section = document.createElement('section');
 	section.setAttribute('class', 'auction_box');
 	//href to auction?title&rest info
 	let a = document.createElement('a');
-	a.setAttribute('href', 'auction.html?auction=' + title);
+	a.setAttribute('href', 'auction.html?auction=' + title.split(" ").join("-"));
 
 	let link = document.createTextNode(title);
 	a.setAttribute('class', 'auction_title');
@@ -67,6 +66,4 @@ function createSection({ title, date, price, description }) {
 	var element = document.getElementsByClassName('row')[0];
 	element.append(section);
 }
-//section class = auction_box
-//a tag auction_tittle
-//p --> description
+

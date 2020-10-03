@@ -83,16 +83,16 @@ router.get('/won', auth, (req, res) => {
 	}
 });
 
-// @route    GET api/auction/:id
+// @route    GET api/auction/:name
 // @desc     get an element with an certain id
 // @access   Public
 router.get("/:name", (req,res) =>{
 	let  title2  = req.params.name;
 	let auctionItems2 = [ ...auction_items ];
-	console.log(title2)
 	//search for auctionItems with a given keyword in it
 	auctionItems2 = auctionItems2.filter(({ title }) => {
-		return (title.toLowerCase().indexOf(title2.toLowerCase())) !== -1;
+		console.log(title)
+		return title.toLowerCase() ===title2.toLowerCase();
 		});
 
 	if (auctionItems2.length>0 && auctionItems2.length<auction_items.length){

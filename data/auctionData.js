@@ -16,7 +16,7 @@ const items = [
 	},
 	{
 		id: 2,
-		title: 'The human eye',
+		title: 'eye',
 		date: '2020-04-09',
 		auction_end: '2020-12-09',
 		price: 19,
