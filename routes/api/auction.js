@@ -40,8 +40,10 @@ router.get('', (req, res) => {
 		if (Number.isNaN(parsedPrice)) {
 			res.status(404).json({ error: 'Invalid number filled in' });
 		}
-		auctionItems = auctionItems.filter((item) => {
-			return item.price <= parsedPrice;
+		auctionItems = auctionItems.filter((item) =>{
+
+
+		return (item.bids[item.bids.length-1].amount <= parsedPrice);
 		});
 	}
 
@@ -72,9 +74,9 @@ router.get('', (req, res) => {
 router.get('/won', auth, (req, res) => {
 	let auctionItems = [ ...auction_items ];
 	//check if the auction ended and if the user matches
-	let wonItems = auctionItems.filter((item) =>
-											((item.bidder === req.user.username) &&
-												(parseInt(item.auction_end.split('-').join(''))<parseInt(new Date().toISOString().slice(0, 10).replace(/-/g, '')))));
+
+
+	let wonItems = auctionItems.filter((item) =>item.bids[item.bids.length-1].bidder === req.user.username && parseInt(item.bids[item.bids.length-1].date.split("-").join(" "))<parseInt(new Date().toISOString().slice(0,10).replace(/-/g,'')));
 
 	if (wonItems.length === 0) {
 		return res.status(StatusCodes.NOT_FOUND).json({ NoItemsFound: 'No won auction item found' });
@@ -91,7 +93,6 @@ router.get("/:name", (req,res) =>{
 	let auctionItems2 = [ ...auction_items ];
 	//search for auctionItems with a given keyword in it
 	auctionItems2 = auctionItems2.filter(({ title }) => {
-		console.log(title)
 		return title.toLowerCase() ===title2.toLowerCase();
 		});
 
@@ -124,7 +125,11 @@ router.post('/', auth, (req, res) => {
 		return res.status(StatusCodes.BAD_REQUEST).json({ error: 'bad request not all fields filled in ' });
 	}
 
+
+
 	let now = parseInt(new Date().toISOString().slice(0, 10).replace(/-/g, ''));
+
+
 	let itemDate = parseInt(auction_end.split('-').join(''));
 
 	if (itemDate < now) {
@@ -132,14 +137,14 @@ router.post('/', auth, (req, res) => {
 				' already ended' });
 	}
 
+
+
 	//looks like everything is okay lets add the auction to the list of auctions.
 	responseObject = {
 		id: uuidv4(),
 		title: title,
-		date: new Date().toISOString().substr(0, 10),
+		bids:null,
 		auction_end: auction_end,
-		price: 0,
-		bidder: null,
 		img: img,
 		location: location,
 		technique: technique
@@ -209,7 +214,7 @@ router.put('/', auth, (req, res) => {
 				 });
 	}
 	//the keys on which we want to check on
-	let keys = [ 'title', 'auction_end', 'img', 'location', 'technique', 'price' ];
+	let keys = [ 'title', 'auction_end', 'img', 'location', 'technique' ];
 	//lets change the array
 	Object.keys(req.body).forEach((key) => {
 		if (keys.includes(key)){

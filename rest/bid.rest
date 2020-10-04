@@ -44,7 +44,7 @@ Accept: application/json
 Authorization: Bearer {{token}}
 
 {
-  "id": 1
+  "id": 2
 }
 
 > {%
@@ -63,7 +63,7 @@ Accept: application/json
 Authorization: Bearer {{token}}
 
 {
-  "id": 3
+  "id": 1
 }
 
 > {%
@@ -75,25 +75,7 @@ Authorization: Bearer {{token}}
 });
  %}
 
-### last bidder on the auction
-POST http://localhost:3000/bid/
-Content-Type: application/json
-Accept: application/json
-Authorization: Bearer {{token}}
 
-{
-  "bid": 90,
-  "id": 2
-}
-
-> {%
- client.test("Request executed succesfully", function(){
-    client.assert(response.status === 404, "Response status is not 200, "  + response.status)
-});
- client.test("Check body" , function(){
-    client.assert(response.body.error, "There is no items")
-});
- %}
 
 ### Try to bid with an string
 POST http://localhost:3000/bid/
@@ -122,7 +104,7 @@ Accept: application/json
 Authorization: Bearer {{token}}
 
 {
-  "bid": 3
+  "id": 3
 }
 
 > {%
@@ -160,7 +142,7 @@ Accept: application/json
 Authorization: Bearer {{admin_token}}
 
 {
-  "bid": 1
+  "id": 1
 }
 
 > {%
@@ -172,21 +154,3 @@ Authorization: Bearer {{admin_token}}
 });
  %}
 
-### Admin can delete everything
-DELETE http://localhost:3000/bid/
-Content-Type: application/json
-Accept: application/json
-Authorization: Bearer {{admin_token}}
-
-{
-  "bid": 1
-}
-
-> {%
- client.test("Request executed succesfully", function(){
-    client.assert(response.status === 200, "Response status is not 200, "  + response.status)
-});
- client.test("Check body" , function(){
-    client.assert(response.body.item, "There is no items")
-});
- %}

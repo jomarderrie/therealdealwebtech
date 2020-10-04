@@ -63,7 +63,7 @@ Content-Type: application/json
 });
  %}
 ### multiple parameter search
-GET http://localhost:3000/auction?technique=digital&price=20&search=eye
+GET http://localhost:3000/auction?technique=digital&price=30&search=eye
 Content-Type: application/json
 
 > {%

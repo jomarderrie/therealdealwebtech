@@ -9,7 +9,8 @@ let name = ok.get('auction').split("-").join(" ");
 sendJSON({ method: 'get', url: '/auction/' + name }, (err, resp) => {
     // if err is undefined, the send operation was a success
     if (!err) {
-        injectItem(resp)
+
+        injectItem(resp.actionItems[0]);
 
 
     } else {
@@ -19,6 +20,9 @@ sendJSON({ method: 'get', url: '/auction/' + name }, (err, resp) => {
 });
 
 
-function injectItem(item) {
+function injectItem({title}) {
+    console.log(item)
+    //get element of the title then set it to the found
+    // title
     console.log(item)
 }

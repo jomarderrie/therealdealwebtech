@@ -4,10 +4,16 @@ const items = [
 	{
 		id: 1,
 		title: 'Dillon Boy',
-		date: '2020-04-09',
 		auction_end: '2020-10-01',
-		price: 29,
-		bidder: 'henk3',
+		bids:[
+			{
+				bidder: 'henk',
+				time: '14:03',
+				amount: 20,
+				date: '2020-04-09'
+			}
+
+		],
 		img: './images/auction1.jpg',
 		location: 'Utrecht',
 		technique: 'Bronze',
@@ -17,10 +23,21 @@ const items = [
 	{
 		id: 2,
 		title: 'eye',
-		date: '2020-04-09',
 		auction_end: '2020-12-09',
-		price: 19,
-		bidder: 'henk3',
+		bids:[
+			{
+				bidder: 'henk',
+				time: '14:03',
+				amount: 20,
+				date: '2020-04-09'
+			},
+			{
+				bidder: 'henk3',
+				time: '14:03',
+				amount: 30,
+				date: '2020-04-09'
+			},
+		],
 		img: './images/auction2.jpg',
 		location: 'utrecht',
 		technique: 'digital',
@@ -30,10 +47,21 @@ const items = [
 	{
 		id: 3,
 		title: 'The human eye2',
-		date: '2020-04-09',
-		auction_end: '2020-12-09',
-		price: 60,
-		bidder: null,
+		auction_end: '2020-11-09',
+		bids:[
+			{
+				bidder: 'henk3',
+				time: '14:03',
+				amount: 20,
+				date: '2020-04-09'
+			},
+			{
+				bidder: 'henk',
+				time: '14:03',
+				amount: 30,
+				date: '2020-04-09'
+			},
+		],
 		img: './images/auction3.jpg',
 		location: 'Deventer',
 		technique: 'Bronze',
@@ -43,10 +71,21 @@ const items = [
 	{
 		id: 4,
 		title: 'The human eye3',
-		date: '2020-04-09',
 		auction_end: '2020-12-09',
-		price: 49,
-		bidder: 'henk',
+		bids:[
+			{
+				bidder: 'henk',
+				time: '14:03',
+				amount: 20,
+				date: '2020-04-09'
+			},
+			{
+				bidder: 'henk3',
+				time: '14:03',
+				amount: 30,
+				date: '2020-04-09'
+			},
+		],
 		img: './images/auction4.jpg',
 		location: 'Deventer',
 		technique: 'Bronze',
@@ -56,10 +95,21 @@ const items = [
 	{
 		id: 5,
 		title: 'jungle demon',
-		date: '2020-04-09',
 		auction_end: '2020-12-09',
-		price: 49,
-		bidder: null,
+		bids:[
+			{
+				bidder: 'henk',
+				time: '14:03',
+				amount: 20,
+				date: '2020-04-09'
+			},
+			{
+				bidder: 'henk3',
+				time: '14:03',
+				amount: 30,
+				date: '2020-04-09'
+			},
+		],
 		img: './images/auction5.jpg',
 		location: 'Deventer',
 		technique: 'Bronze',
@@ -69,10 +119,21 @@ const items = [
 	{
 		id: 6,
 		title: 'socrates',
-		date: '2020-04-09',
 		auction_end: '2020-12-09',
-		price: 49,
-		bidder: null,
+		bids:[
+			{
+				bidder: 'henk',
+				time: '14:03',
+				amount: 20,
+				date: '2020-04-09'
+			},
+			{
+				bidder: 'henk3',
+				time: '14:03',
+				amount: 30,
+				date: '2020-04-09'
+			},
+		],
 		img: './images/auction6.jpg',
 		location: 'Deventer',
 		technique: 'Bronze',
@@ -82,10 +143,21 @@ const items = [
 	{
 		id: uuidv4(),
 		title: 'nietszche',
-		date: '2020-04-09',
 		auction_end: '2020-12-09',
-		price: 49,
-		bidder: null,
+		bids:[
+			{
+				bidder: 'henk',
+				time: '14:03',
+				date: '2020-04-09',
+				amount: 20
+			},
+			{
+				bidder: 'henk3',
+				time: '14:03',
+				date: '2020-04-09',
+				amount: 30
+			},
+		],
 		img: './images/auction7.jpg',
 		location: 'Deventer',
 		technique: 'Bronze',
@@ -95,10 +167,21 @@ const items = [
 	{
 		id: uuidv4(),
 		title: 'locke',
-		date: '2020-04-09',
 		auction_end: '2020-12-09',
-		price: 49,
-		bidder: null,
+		bids:[
+			{
+				bidder: 'henk',
+				time: '14:03',
+				amount: 20,
+				date: '2020-04-09'
+			},
+			{
+				bidder: 'henk3',
+				time: '14:03',
+				amount: 30,
+				date: '2020-04-09'
+			},
+		],
 		img: './images/auction8.jpg',
 		location: 'Deventer',
 		technique: 'digital',
@@ -108,10 +191,21 @@ const items = [
 	{
 		id: uuidv4(),
 		title: 'The human eye5',
-		date: '2020-04-09',
 		auction_end: '2020-12-09',
-		price: 49,
-		bidder: null,
+		bids:[
+			{
+				bidder: 'henk',
+				time: '14:03',
+				amount: 20,
+				date: '2020-04-09'
+			},
+			{
+				bidder: 'henk3',
+				time: '14:03',
+				amount: 30,
+				date: '2020-04-09'
+			},
+		],
 		img: './images/auction9.jpg',
 		location: 'Deventer',
 		technique: 'Metal',
