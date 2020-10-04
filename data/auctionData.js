@@ -14,7 +14,7 @@ const items = [
 			}
 
 		],
-		img: './images/auction1.jpg',
+		img: 'public/auction1.jpg',
 		location: 'Utrecht',
 		technique: 'Bronze',
 		description:
@@ -38,7 +38,7 @@ const items = [
 				date: '2020-04-09'
 			},
 		],
-		img: './images/auction2.jpg',
+		img: 'public/auction3.jpg',
 		location: 'utrecht',
 		technique: 'digital',
 		description:
@@ -62,7 +62,7 @@ const items = [
 				date: '2020-04-09'
 			},
 		],
-		img: './images/auction3.jpg',
+		img: 'public/auction3.jpg',
 		location: 'Deventer',
 		technique: 'Bronze',
 		description:
@@ -86,7 +86,7 @@ const items = [
 				date: '2020-04-09'
 			},
 		],
-		img: './images/auction4.jpg',
+		img: 'public/auction4.png',
 		location: 'Deventer',
 		technique: 'Bronze',
 		description:
@@ -110,7 +110,7 @@ const items = [
 				date: '2020-04-09'
 			},
 		],
-		img: './images/auction5.jpg',
+		img: 'public/auction4.png',
 		location: 'Deventer',
 		technique: 'Bronze',
 		description:
@@ -134,7 +134,7 @@ const items = [
 				date: '2020-04-09'
 			},
 		],
-		img: './images/auction6.jpg',
+		img: 'public/auction4.png',
 		location: 'Deventer',
 		technique: 'Bronze',
 		description:
@@ -158,7 +158,7 @@ const items = [
 				amount: 30
 			},
 		],
-		img: './images/auction7.jpg',
+		img: 'public/auction7.jpg',
 		location: 'Deventer',
 		technique: 'Bronze',
 		description:
@@ -182,7 +182,7 @@ const items = [
 				date: '2020-04-09'
 			},
 		],
-		img: './images/auction8.jpg',
+		img: 'public/auction8.jpg',
 		location: 'Deventer',
 		technique: 'digital',
 		description:
@@ -206,7 +206,7 @@ const items = [
 				date: '2020-04-09'
 			},
 		],
-		img: './images/auction9.jpg',
+		img: 'public/auction9.jpg',
 		location: 'Deventer',
 		technique: 'Metal',
 		description:
