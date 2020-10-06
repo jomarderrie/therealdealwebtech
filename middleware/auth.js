@@ -12,7 +12,7 @@ function authenticateToken(req, res, next) {
 
 	const token = authHeader && authHeader.split(' ')[1];
 	//check if token exist
-
+	console.log(token)
 	if (token == null) {
 		return res.status(StatusCodes.UNAUTHORIZED).json({ error: 'Try to' +
 				' login again' });

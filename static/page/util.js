@@ -13,19 +13,19 @@ export function sendJSON({ method, url, body }, callback) {
 	});
 	xhr.open(method, url);
 	xhr.setRequestHeader('Content-Type', 'application/json');
-	if (sessionToken !== undefined) {
-		xhr.setRequestHeader('Authorization', `Bearer ${sessionToken}`);
+	let token2 = localStorage.getItem('token');
+	if ( token2!== undefined) {
+		xhr.setRequestHeader('Authorization', `Bearer ${token2}`);
 	}
 	xhr.send(body !== undefined ? JSON.stringify(body) : undefined);
 }
 
 export function saveToken(token) {
-	console.log(token);
 	sessionToken = token;
 	localStorage.setItem('token', token);
 }
 
-function resetToken() {
+export function resetToken() {
 	// clear token when users logs out
 	window.location.href = 'login.html';
 	sessionToken = undefined;
@@ -56,9 +56,7 @@ export function validateInputControl(element, ok) {
 
 // }
 
-export function findElement(title){
-	return
-}
+
 export function redirect(url, method) {
 	var form = document.createElement('form');
 	form.method = method;

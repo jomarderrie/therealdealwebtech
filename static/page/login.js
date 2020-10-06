@@ -1,5 +1,5 @@
 // import utilities from util.js
-import { sendJSON, saveToken, validateInputControl } from './util.js';
+import { sendJSON, saveToken, validateInputControl, resetToken } from './util.js';
 
 // grab form controls from the DOM
 const form = document.querySelector('main form'),
@@ -17,6 +17,7 @@ loginButton.addEventListener('click', (event) => {
 	sendJSON({ method: 'POST', url: '/auth', body }, (err, response) => {
 		// if err is undefined, the send operation was a success
 		if (!err) {
+			resetToken();
 			saveToken(response.token);
 			window.location.href = 'index.html';
 			var tag = document.createElement('div');

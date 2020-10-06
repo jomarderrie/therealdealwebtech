@@ -1,7 +1,6 @@
 // TODO: control index page
 import { sendJSON, saveToken, validateInputControl, redirect } from './util.js';
 
-const mainRow = document.querySelector('main row');
 
 sendJSON({ method: 'get', url: '/auction' }, (err, resp) => {
 	// if err is undefined, the send operation was a success
@@ -27,7 +26,7 @@ sendJSON({ method: 'get', url: '/auction' }, (err, resp) => {
 	}
 });
 
-function createSection({ title, date, price, description}) {
+function createSection({ title, auction_end, bids, description}) {
 	//create section element
 	let section = document.createElement('section');
 	section.setAttribute('class', 'auction_box');
@@ -38,7 +37,6 @@ function createSection({ title, date, price, description}) {
 	let link = document.createTextNode(title);
 	a.setAttribute('class', 'auction_title');
 	a.append(link);
-	// a.addEventListener("click", )
 	section.append(a);
 
 	//description element
@@ -53,12 +51,13 @@ function createSection({ title, date, price, description}) {
 
 	let span1 = document.createElement('span');
 	span1.setAttribute('class', 'auction_bid_price');
-	span1.innerHTML = price;
+	let bidsPrice = bids.slice(-1)[0].amount;
+	span1.innerHTML = bidsPrice;
 	auctionDiv.append(span1);
 
 	let span2 = document.createElement('span');
 	span2.setAttribute('class', 'auction_bid_time');
-	span2.innerHTML = date;
+	span2.innerHTML = auction_end;
 	auctionDiv.append(span2);
 
 	section.append(auctionDiv);

@@ -5,16 +5,27 @@ Accept: application/json
 Authorization: Bearer {{token}}
 
 {
+  "bid": 100,
+  "id": 3
+}
+
+### Try to bid to little or same amount
+POST http://localhost:3000/bid/
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
   "bid": 90,
   "id": 3
 }
 
 > {%
  client.test("Request executed succesfully", function(){
-    client.assert(response.status === 200, "Response status is not 200, "  + response.status)
+    client.assert(response.status === 404, "Response status is not 200, "  + response.status)
 });
  client.test("Check body" , function(){
-    client.assert(response.body.item, "There is no items")
+    client.assert(response.body.error, "There is no items")
 });
  %}
 
@@ -96,6 +107,8 @@ Authorization: Bearer {{token}}
     client.assert(response.body.error, "There is no items")
 });
  %}
+
+
 
 ### delete bid
 DELETE http://localhost:3000/bid/

@@ -50,9 +50,9 @@ registerButton.addEventListener('click', (event) => {
 function validateRegister() {
 	let email = validateEmail(eMail);
 	let passCheck = validatePassword(password);
-	let passwordRepeatCheck = password.value == password2.value && true;
+	let passwordRepeatCheck = password.value === password2.value && true;
 	usernameField.value.length <= 0 ? usernameField.classList.add('bad') : usernameField.classList.remove('bad');
-	let usernameFieldCheck = usernameField.value.length <= 0 ? false : true;
+	let usernameFieldCheck = usernameField.value.length > 0;
 
 	let booleanCheck = email && passCheck && passwordRepeatCheck && usernameFieldCheck;
 

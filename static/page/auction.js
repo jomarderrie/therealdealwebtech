@@ -6,7 +6,7 @@ const urlSearchParams = new URLSearchParams(document.location.search.substring(1
 const queryParam = urlSearchParams.get('auction').split("-").join(" ");
 const amountInput = document.getElementsByClassName("auction_bid_button")[0];
 const inputItem = document.getElementsByClassName("auction_bid_amount")[0];
-
+let idAuction;
 sendJSON({ method: 'get', url: '/auction/' + queryParam }, (err, resp) => {
     // if err is undefined, the send operation was a success
     if (!err) {
@@ -18,8 +18,8 @@ sendJSON({ method: 'get', url: '/auction/' + queryParam }, (err, resp) => {
 });
 
 
-function injectAuctionItem({title, description, bids,img}) {
-    console.log(description)
+function injectAuctionItem({title, description, bids,img, id}) {
+    idAuction =  id;
 
     const titleElement = document.getElementsByClassName("auction_title")[0];
     titleElement.innerHTML =title;
@@ -33,7 +33,7 @@ function injectAuctionItem({title, description, bids,img}) {
     const auctionDetail = document.getElementsByClassName("auction_detail_bid_list")[0].querySelector("ul");
     auctionDetail.innerText = "";
     for(const bid of bids){
-        console.log(bid)
+
         const liItem = document.createElement("li");
         liItem.setAttribute("class", 'auction_detail_bid')
 
@@ -57,8 +57,15 @@ function injectAuctionItem({title, description, bids,img}) {
 
 amountInput.addEventListener("click", (e) =>{
     e.preventDefault();
-    const body = {bid: inputItem.value};
-
+    const body = {bid: 100, itemId: 3};
+    console.log(body)
+    sendJSON({method: 'POST', url:'/bid', body}, (err,response) =>{
+        if (!err){
+            console.log(response)
+        }else{
+            console.log(err)
+        }
+    })
 })
 
 
