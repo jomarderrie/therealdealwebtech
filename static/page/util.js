@@ -3,6 +3,9 @@ let sessionToken;
 let requestText;
 let requestStatusCode;
 // send HTTP request, possibly with JSON body, and invoke callback when JSON response body arrives
+const searchbar = document.getElementsByClassName("search-container")[0];
+const inputSubmit = document.getElementsByClassName("search-container")[0].querySelector("form");
+
 export function sendJSON({ method, url, body }, callback) {
 	const xhr = new XMLHttpRequest();
 	xhr.addEventListener('load', () => {
@@ -62,17 +65,101 @@ export function validateInputControl(element, ok) {
 
 //extractpayloadfromtoken
 
-// export function search(){
+export function search(){
 
-// }
-
-
-export function redirect(url, method) {
-	var form = document.createElement('form');
-	form.method = method;
-	form.action = url;
-	form.submit();
 }
+
+function populateFilters() {
+	let items;
+	sendJSON({
+				 method: 'get',
+				 url: '/auction'
+			 }, (err, resp) => {
+		// if err is undefined, the send operation was a success
+		if (!err) {
+			items = (resp.auctionItems);
+			priceSlider(items);
+			locationDropDown2(items);
+
+		} else {
+			console.log(err);
+		}
+	});
+
+}
+
+
+function locationDropDown2(items) {
+	let locationsSet = new Set();
+	let techniqueSet = new Set();
+	items.map(item =>{
+		locationsSet.add(item.location)
+		techniqueSet.add(item.technique);
+	})
+	let locationDropDown = document.createElement('select');
+	let tecniqueDropdown = document.createElement('select');
+	let locationLabel = document.createElement('label');
+	locationLabel.innerHTML += "locations: "
+	let techniqueLabel = document.createElement('label');
+	techniqueLabel.innerHTML += "technique's: "
+
+
+	locationsSet.forEach(e =>{
+		let option = document.createElement('option');
+		option.value = e;
+		option.innerHTML = e;
+		locationDropDown.append(option);
+	})
+
+	techniqueSet.forEach(e =>{
+		let option = document.createElement('option');
+		option.value = e;
+		option.innerHTML = e;
+		tecniqueDropdown.append(option);
+	})
+
+	let brTag = document.createElement('div');
+	brTag.innerHTML = "<br>"
+
+	locationLabel.append(locationDropDown);
+	techniqueLabel.append(tecniqueDropdown);
+
+
+	searchbar.append(techniqueLabel)
+	searchbar.append(brTag)
+	searchbar.append(locationLabel)
+}
+
+function priceSlider(items) {
+	let min = items[0].bids[items[0].bids.length-1].amount;
+	let max = items[0].bids[items[0].bids.length-1].amount;
+	let priceSlider = document.createElement('div');
+	let inputSliderItem = document.createElement('input');
+	let labelSliderItem = document.createElement('label');
+	labelSliderItem.id = "range_price";
+	inputSliderItem.id = "range_price";
+	inputSliderItem.type ="range"
+	items.map(item =>{
+		let itemAmount = item.bids[item.bids.length-1].amount;
+		min = (itemAmount<min)? itemAmount:min;
+		max = (itemAmount>max)?itemAmount:max;
+	})
+	inputSliderItem.max = max;
+	inputSliderItem.min = min;
+	labelSliderItem.innerHTML +="price between " + min +  " and " + max;
+
+	let brTag = document.createElement('div');
+	brTag.innerHTML = "<br>"
+
+
+	labelSliderItem.append(inputSliderItem);
+
+	priceSlider.append(labelSliderItem);
+	searchbar.append(priceSlider)
+	searchbar.append(brTag)
+}
+
+
 
 function handleNavigation(query) {
 	console.log('DOM has loaded');
@@ -80,12 +167,12 @@ function handleNavigation(query) {
 }
 
 window.onload = function() {
-	getTokenPayload();
+	// getTokenPayload();
+	populateFilters();
 	console.log('DOM has loaded');
 };
 
 
 document.querySelector('nav').querySelectorAll('a')[4].addEventListener('click', resetToken);
-
 
 

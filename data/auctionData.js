@@ -15,7 +15,7 @@ const items = [
 
 		],
 		img: 'public/auction1.jpg',
-		location: 'Utrecht',
+		location: 'utrecht',
 		technique: 'Bronze',
 		description:
 			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat'
@@ -274,7 +274,7 @@ const items = [
 			{
 				bidder: 'henk',
 				time: '14:03',
-				amount: 30,
+				amount: 10,
 				date: '2020-04-09'
 			},
 		],
@@ -322,7 +322,7 @@ const items = [
 			{
 				bidder: 'henk',
 				time: '14:03',
-				amount: 30,
+				amount: 1000,
 				date: '2020-04-09'
 			},
 		],

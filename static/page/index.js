@@ -1,5 +1,5 @@
 // TODO: control index page
-import { sendJSON, saveToken, validateInputControl, redirect } from './util.js';
+import { sendJSON, saveToken, validateInputControl } from './util.js';
 
 
 let items;

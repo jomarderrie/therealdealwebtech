@@ -41,8 +41,6 @@ router.get('', (req, res) => {
 			res.status(404).json({ error: 'Invalid number filled in' });
 		}
 		auctionItems = auctionItems.filter((item) =>{
-
-
 		return (item.bids[item.bids.length-1].amount <= parsedPrice);
 		});
 	}
