@@ -1,17 +1,29 @@
 // TODO: control index page
 import { sendJSON, saveToken, validateInputControl, redirect } from './util.js';
 
-const mainRow = document.querySelector('main row');
+
+let items;
+const rowElement = document.getElementsByClassName('row')[0];
+const mainElement = document.querySelector('main');
+let paginaDiv = document.createElement('div');
+paginaDiv.setAttribute("class", "page_numbers");
+paginaDiv.style.textAlign="center";
+paginaDiv.style.padding = "30px"
+mainElement.appendChild(paginaDiv);
+const pageElement = document.getElementsByClassName('page_numbers')[0];
+
+
+let current_page =1;
+let rows = 5;
 
 sendJSON({ method: 'get', url: '/auction' }, (err, resp) => {
 	// if err is undefined, the send operation was a success
 	if (!err) {
-		resp.auctionItems.map((item) => {
-			createSection(item);
-			// localStorage.setItem(item.title, item);
+		items = resp.auctionItems.filter((item) => {
+			return (parseInt(new Date().toISOString().slice(0, 10).replace(/-/g, '')) < parseInt(item.auction_end.split('-').join('')))
 		});
-
-
+		displayList(items, rowElement, rows, current_page);
+		setupPagination(items, pageElement, rows)
 	} else {
 		window.location.href = 'index.html';
 		var tag = document.createElement('div');
@@ -28,46 +40,82 @@ sendJSON({ method: 'get', url: '/auction' }, (err, resp) => {
 });
 
 function createSection({ title, auction_end, bids, description}) {
-	//create section element
-	let section = document.createElement('section');
-	section.setAttribute('class', 'auction_box');
-	//href to auction?title&rest info
-	let a = document.createElement('a');
-	a.setAttribute('href', 'auction.html?auction=' + title.split(" ").join("-"));
+	//check if the auction already ended.
 
-	let link = document.createTextNode(title);
-	a.setAttribute('class', 'auction_title');
-	a.append(link);
-	section.append(a);
+		//create section element
 
-	//description element
-	let descriptionElement = document.createElement('p');
-	descriptionElement.setAttribute('class', 'auction_description');
-	descriptionElement.innerHTML = description;
-	section.append(descriptionElement);
+		let section = document.createElement('section');
+		section.setAttribute('class', 'auction_box');
+		//href to auction?title&rest info
+		let a = document.createElement('a');
+		a.setAttribute('href', 'auction.html?auction=' + title.split(" ").join("-"));
 
-	// auction bid div and span
-	let auctionDiv = document.createElement('div');
-	auctionDiv.setAttribute('class', 'auction_bid');
+		let link = document.createTextNode(title);
+		a.setAttribute('class', 'auction_title');
+		a.append(link);
+		section.append(a);
 
-	let span1 = document.createElement('span');
-	span1.setAttribute('class', 'auction_bid_price');
-	let bidsPrice = bids.slice(-1)[0].amount;
-	span1.innerHTML = bidsPrice;
-	auctionDiv.append(span1);
+		//description element
+		let descriptionElement = document.createElement('p');
+		descriptionElement.setAttribute('class', 'auction_description');
+		descriptionElement.innerHTML = description;
+		section.append(descriptionElement);
 
-	let span2 = document.createElement('span');
-	span2.setAttribute('class', 'auction_bid_time');
-	span2.innerHTML = auction_end;
-	auctionDiv.append(span2);
+		// auction bid div and span
+		let auctionDiv = document.createElement('div');
+		auctionDiv.setAttribute('class', 'auction_bid');
 
-	section.append(auctionDiv);
-	//add the section
-	var element = document.getElementsByClassName('row')[0];
-	element.append(section);
+		let span1 = document.createElement('span');
+		span1.setAttribute('class', 'auction_bid_price');
+		let bidsPrice = bids.slice(-1)[0].amount;
+		span1.innerHTML = bidsPrice;
+		auctionDiv.append(span1);
+
+		let span2 = document.createElement('span');
+		span2.setAttribute('class', 'auction_bid_time');
+		span2.innerHTML = auction_end;
+		auctionDiv.append(span2);
+
+		section.append(auctionDiv);
+		//add the section
+		var element = document.getElementsByClassName('row')[0];
+		element.append(section);
+
 }
 
 
 
+function displayList(items,wrapper,rows_per_page, page ){
+	wrapper.innerHTML = "";
+	page--;
 
+	let loopStart = rows_per_page*page;
+	let paginatedItems = items.slice(loopStart, loopStart+rows_per_page);
+	console.log(items)
+	for (let i =0; i<paginatedItems.length; i++){
+		createSection(paginatedItems[i])
 
+	}
+}
+
+function setupPagination(items, wrapper,rows_per_page){
+	let page_count = Math.ceil(items.length/ rows_per_page)
+	for (let i = 1; i < page_count+1; i++) {
+		let btn = paginationButton(i);
+		wrapper.appendChild(btn);
+	}
+}
+
+function paginationButton(page){
+	let button = document.createElement("button");
+	button.innerText = page;
+	button.setAttribute("class", "button_navigation")
+	button.style.padding ="10px";
+	button.style.marginRight = "25px";
+	button.addEventListener('click', () =>{
+		current_page = page;
+		displayList(items, rowElement, rows, current_page);
+	})
+
+	return button
+}

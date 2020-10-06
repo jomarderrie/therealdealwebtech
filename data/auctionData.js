@@ -211,6 +211,174 @@ const items = [
 		technique: 'Metal',
 		description:
 			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat'
+	},
+	{
+		id: uuidv4(),
+		title: 'socrates',
+		auction_end: '2020-12-09',
+		bids:[
+			{
+				bidder: 'henk3',
+				time: '14:03',
+				amount: 20,
+				date: '2020-04-09'
+			},
+			{
+				bidder: 'henk',
+				time: '14:03',
+				amount: 30,
+				date: '2020-04-09'
+			},
+		],
+		img: 'public/auction4.png',
+		location: 'Deventer',
+		technique: 'Bronze',
+		description:
+			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat'
+	},
+	{
+		id: uuidv4(),
+		title: 'socrates',
+		auction_end: '2020-12-09',
+		bids:[
+			{
+				bidder: 'henk3',
+				time: '14:03',
+				amount: 20,
+				date: '2020-04-09'
+			},
+			{
+				bidder: 'henk',
+				time: '14:03',
+				amount: 30,
+				date: '2020-04-09'
+			},
+		],
+		img: 'public/auction4.png',
+		location: 'Deventer',
+		technique: 'Bronze',
+		description:
+			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat'
+	},
+	{
+		id: uuidv4(),
+		title: 'socrates',
+		auction_end: '2020-12-09',
+		bids:[
+			{
+				bidder: 'henk3',
+				time: '14:03',
+				amount: 20,
+				date: '2020-04-09'
+			},
+			{
+				bidder: 'henk',
+				time: '14:03',
+				amount: 30,
+				date: '2020-04-09'
+			},
+		],
+		img: 'public/auction4.png',
+		location: 'Deventer',
+		technique: 'Bronze',
+		description:
+			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat'
+	},
+	{
+		id: uuidv4(),
+		title: 'socrates',
+		auction_end: '2020-12-09',
+		bids:[
+			{
+				bidder: 'henk3',
+				time: '14:03',
+				amount: 20,
+				date: '2020-04-09'
+			},
+			{
+				bidder: 'henk',
+				time: '14:03',
+				amount: 30,
+				date: '2020-04-09'
+			},
+		],
+		img: 'public/auction4.png',
+		location: 'Deventer',
+		technique: 'Bronze',
+		description:
+			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat'
+	},
+	{
+		id: uuidv4(),
+		title: 'socrates',
+		auction_end: '2020-12-09',
+		bids:[
+			{
+				bidder: 'henk3',
+				time: '14:03',
+				amount: 20,
+				date: '2020-04-09'
+			},
+			{
+				bidder: 'henk',
+				time: '14:03',
+				amount: 30,
+				date: '2020-04-09'
+			},
+		],
+		img: 'public/auction4.png',
+		location: 'Deventer',
+		technique: 'Bronze',
+		description:
+			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat'
+	},
+	{
+		id: uuidv4(),
+		title: 'socrates',
+		auction_end: '2020-12-09',
+		bids:[
+			{
+				bidder: 'henk3',
+				time: '14:03',
+				amount: 20,
+				date: '2020-04-09'
+			},
+			{
+				bidder: 'henk',
+				time: '14:03',
+				amount: 30,
+				date: '2020-04-09'
+			},
+		],
+		img: 'public/auction4.png',
+		location: 'Deventer',
+		technique: 'Bronze',
+		description:
+			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat'
+	},
+	{
+		id: uuidv4(),
+		title: 'socrates',
+		auction_end: '2020-12-09',
+		bids:[
+			{
+				bidder: 'henk3',
+				time: '14:03',
+				amount: 20,
+				date: '2020-04-09'
+			},
+			{
+				bidder: 'henk',
+				time: '14:03',
+				amount: 30,
+				date: '2020-04-09'
+			},
+		],
+		img: 'public/auction4.png',
+		location: 'Deventer',
+		technique: 'Bronze',
+		description:
+			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat'
 	}
 ];
 
