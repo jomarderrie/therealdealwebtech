@@ -10,7 +10,7 @@ const StatusCodes = require('http-status-codes');
 // @access   Private
 
 router.post('/', auth, (req, res) => {
-    let itemId = req.body.id;
+    let itemId = (req.body.id);
     let username = req.user.username;
     let bid = req.body.bid;
     let indexItem;
@@ -18,7 +18,7 @@ router.post('/', auth, (req, res) => {
     //lets first try to find the item.
     let item = items.find(({id}, index) => {
         indexItem = index;
-        return id === parseInt(itemId);
+        return id === (itemId);
     });
 
 
@@ -50,6 +50,7 @@ router.post('/', auth, (req, res) => {
     // auction
     // console.log(items[indexItem].bids.slice(-1)[0]);
     if (items[indexItem].bids.slice(-1)[0].bidder === username) {
+
         return res.status(StatusCodes.NOT_FOUND).json({
                                                           error: 'You' +
                                                               ' were the' +

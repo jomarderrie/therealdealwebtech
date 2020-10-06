@@ -4,6 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 const bcrypt = require('bcrypt');
 const users = require('../../data/userData');
 const StatusCodes = require('http-status-codes');
+const jwt = require('jsonwebtoken');
 
 // @route POST /register/
 // @desc As a user I want to be able to register (email address and password)
@@ -44,6 +45,7 @@ router.post('/', async (req, res) => {
 			role: 'user'
 		};
 		users.push(responseObject);
+
 		return res.status(StatusCodes.OK).json({ ok: "User registered" });
 	}
 });

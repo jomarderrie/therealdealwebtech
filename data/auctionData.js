@@ -122,13 +122,13 @@ const items = [
 		auction_end: '2020-12-09',
 		bids:[
 			{
-				bidder: 'henk',
+				bidder: 'henk3',
 				time: '14:03',
 				amount: 20,
 				date: '2020-04-09'
 			},
 			{
-				bidder: 'henk3',
+				bidder: 'henk',
 				time: '14:03',
 				amount: 30,
 				date: '2020-04-09'

@@ -1,6 +1,7 @@
 // JWT token string with header, payload and signature
 let sessionToken;
-
+let requestText;
+let requestStatusCode;
 // send HTTP request, possibly with JSON body, and invoke callback when JSON response body arrives
 export function sendJSON({ method, url, body }, callback) {
 	const xhr = new XMLHttpRequest();
@@ -8,7 +9,9 @@ export function sendJSON({ method, url, body }, callback) {
 		if (xhr.status === 200) {
 			callback(undefined, JSON.parse(xhr.responseText));
 		} else {
-			callback(new Error(xhr.statusText));
+			requestText = (xhr.responseText);
+			requestStatusCode = xhr.status;
+			callback(new Error(xhr.responseText));
 		}
 	});
 	xhr.open(method, url);
@@ -23,6 +26,13 @@ export function sendJSON({ method, url, body }, callback) {
 export function saveToken(token) {
 	sessionToken = token;
 	localStorage.setItem('token', token);
+}
+
+export function getRequestText() {
+	return requestText;
+}
+export function getRequestStatus() {
+	return requestStatusCode;
 }
 
 export function resetToken() {

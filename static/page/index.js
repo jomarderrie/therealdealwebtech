@@ -1,6 +1,7 @@
 // TODO: control index page
 import { sendJSON, saveToken, validateInputControl, redirect } from './util.js';
 
+const mainRow = document.querySelector('main row');
 
 sendJSON({ method: 'get', url: '/auction' }, (err, resp) => {
 	// if err is undefined, the send operation was a success
@@ -65,4 +66,8 @@ function createSection({ title, auction_end, bids, description}) {
 	var element = document.getElementsByClassName('row')[0];
 	element.append(section);
 }
+
+
+
+
 

@@ -6,8 +6,8 @@ const form = document.querySelector('main form'),
 	usernameField = form.querySelector('input[type="text"]'),
 	passwordField = form.querySelector('input[type="password"]'),
 	loginButton = form.querySelector('input[type="submit"]');
-
 // respond to click event on login button
+let notOkGate = false;
 loginButton.addEventListener('click', (event) => {
 	// do not submit form (the default action of a submit button)
 	event.preventDefault();
@@ -20,29 +20,31 @@ loginButton.addEventListener('click', (event) => {
 			resetToken();
 			saveToken(response.token);
 			window.location.href = 'index.html';
-			var tag = document.createElement('div');
+			let tag = document.createElement('div');
 			tag.innerHTML = '<p>register succesfull<p>';
 			tag.setAttribute('class', 'registerSucces');
 			tag.style.background = 'green';
 			tag.style.display = 'relative';
 			tag.style.width = '100px';
 			tag.style.height = '100px';
-			var element = document.getElementsByClassName('row')[0];
+			let element = document.getElementsByClassName('row')[0];
 			element.append(tag);
 		} else {
-			var tag = document.createElement('div');
+			if (!notOkGate) {
+				let tag = document.createElement('div');
+				let text = document.createTextNode(err.error + ' try' + ' to login again ');
+				tag.setAttribute('class', 'error');
+				tag.style.color = 'red';
+				tag.append(text);
+				tag.style.paddingTop = '15px';
 
-			var text = document.createTextNode(err + ' try to login again ');
-			tag.setAttribute('class', 'myclass');
-			tag.style.color = 'red';
-			tag.append(text);
-			tag.style.paddingTop = '15px';
+				tag.appendChild(text);
 
-			tag.appendChild(text);
+				let element = document.getElementsByClassName('login_form')[0];
 
-			var element = document.getElementsByClassName('login_form')[0];
-
-			element.append(tag);
+				element.append(tag);
+				notOkGate = true;
+			}
 		}
 	});
 });

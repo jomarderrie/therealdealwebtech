@@ -13,7 +13,7 @@ require('dotenv').config();
 router.post('/', async (req, res) => {
 	//lets first find the user
 	const user = users.find((user) => user.email === req.body.user);
-	if (user == null) {
+	if (!user) {
 		return res.status(StatusCodes.BAD_REQUEST).json({ error: 'Cannot find email' });
 	}
 	try {
@@ -34,11 +34,6 @@ router.post('/', async (req, res) => {
 	}
 });
 
-// @route POST /auth/delete
-// @desc As an administrator/user and user I want to be able to log out
-// @acces Public
-// router.delete('/logout', auth, (req, res) => {
-// 	req.user.deleteToken(req.token, (err, user) => {});
-// });
+
 
 module.exports = router;
