@@ -1,5 +1,5 @@
 // TODO: control index page
-import { sendJSON, saveToken, validateInputControl } from './util.js';
+import {sendJSON} from './util.js';
 
 
 let items;
@@ -68,8 +68,7 @@ function createSection({ title, auction_end, bids, description}) {
 
 		let span1 = document.createElement('span');
 		span1.setAttribute('class', 'auction_bid_price');
-		let bidsPrice = bids.slice(-1)[0].amount;
-		span1.innerHTML = bidsPrice;
+		span1.innerHTML = bids.slice(-1)[0].amount;
 		auctionDiv.append(span1);
 
 		let span2 = document.createElement('span');

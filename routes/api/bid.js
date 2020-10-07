@@ -107,8 +107,10 @@ router.delete("/", auth, (req, res) => {
     //lets first try to find the item.
     let item = items.find(({id}, index) => {
         indexItem = index;
-        return id === parseInt(itemId);
+        return parseInt(id) === parseInt(itemId);
     });
+
+    console.log(indexItem)
 
     //if the item hasnt been found item not found message
     if (item === undefined) {
@@ -117,6 +119,7 @@ router.delete("/", auth, (req, res) => {
                                                               ' found'
                                                       });
     }
+
 
     //lets first check if the user is the actually admin if
     // so remove it because admin can do everything
@@ -138,7 +141,6 @@ router.delete("/", auth, (req, res) => {
                                             ' already ended'
                                     });
     }
-    let itemIndex;
     let userItem = items[indexItem].bids.filter((item) => {
         return item.bidder !== username;
     })
@@ -149,7 +151,7 @@ router.delete("/", auth, (req, res) => {
                                             ' have a bid on the auction'
                                     });
     } else {
-        return res.status(StatusCodes.OK).json({item: items[indexItem]});
+        return res.status(StatusCodes.OK).json({item: items});
     }
 
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: 'internal server error'});
