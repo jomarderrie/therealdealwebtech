@@ -121,7 +121,7 @@ router.get("/:name", (req,res) =>{
 // @desc     I want to add new auctions as a admin.
 // @access   Private
 router.post('/', auth, (req, res) => {
-	const { title, auction_end, img, location, technique } = req.body;
+	const { title, auction_end, img, location, technique,description } = req.body;
 	let responseObject = [];
 	//lets first check if we actually have an admin
 	if (req.user.role !== 'admin') {
@@ -129,13 +129,15 @@ router.post('/', auth, (req, res) => {
 	}
 
 	//if not all parameters are send in send invalid request
-	if (
-		title === undefined ||
-		location === undefined ||
-		technique === undefined ||
-		img === undefined ||
-		auction_end === undefined
-	) {
+	if (title===undefined||description===undefined||auction_end===undefined)
+	// if (
+	// 	title === undefined ||
+	// 	location === undefined ||
+	// 	technique === undefined ||
+	// 	img === undefined ||
+	// 	auction_end === undefined
+	// )
+	{
 		return res.status(StatusCodes.BAD_REQUEST).json({ error: 'bad request not all fields filled in ' });
 	}
 
@@ -155,7 +157,7 @@ router.post('/', auth, (req, res) => {
 
 	//looks like everything is okay lets add the auction to the list of auctions.
 	responseObject = {
-		id: uuidv4(),
+		id: auction_items.length,
 		title: title,
 		bids:null,
 		auction_end: auction_end,
@@ -208,8 +210,8 @@ router.delete('/', auth, (req, res) => {
 // @access   Private
 router.put('/', auth, (req, res) => {
 	let indexItem;
-	let itemId = req.body.id;
-
+	let itemId = parseInt(req.body.id);
+	console.log(itemId);
 	//lets first check if we actually have an admin
 	if (req.user.role !== 'admin') {
 		return res.status(StatusCodes.UNAUTHORIZED).json({ error: 'Not admin' +
@@ -243,18 +245,6 @@ router.put('/', auth, (req, res) => {
 });
 
 
-// modifyCell.addEventListener("click", (event) =>{
-//     console.log(event.target);
-//     let body ={
-//         id:event.target.value
-//     }
-//     sendJSON({method:"PUT", url:"/auction", body}, (err,resp) =>{
-//         if(!err){
-//             console.log(resp)
-//         }else{
-//             console.log(err)
-//         }
-//     })
-// })
+
 
 module.exports = router;
