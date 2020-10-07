@@ -103,14 +103,13 @@ router.delete("/", auth, (req, res) => {
     let itemId = req.body.id;
     let username = req.user.username;
     let indexItem;
-
+    // console.log(items)
+    // console.log(itemId)
     //lets first try to find the item.
-    let item = items.find(({id}, index) => {
-        indexItem = index;
-        return parseInt(id) === parseInt(itemId);
+    let item = items.find((item, index) => {
+        return item.id === itemId;
     });
 
-    console.log(indexItem)
 
     //if the item hasnt been found item not found message
     if (item === undefined) {
@@ -141,7 +140,7 @@ router.delete("/", auth, (req, res) => {
                                             ' already ended'
                                     });
     }
-    let userItem = items[indexItem].bids.filter((item) => {
+    let userItem = item.bids.filter((item) => {
         return item.bidder !== username;
     })
 
@@ -151,6 +150,13 @@ router.delete("/", auth, (req, res) => {
                                             ' have a bid on the auction'
                                     });
     } else {
+        items = items.map(item =>{
+            if (item.id === itemId){
+
+                console.log(item)
+            }
+        })
+
         return res.status(StatusCodes.OK).json({item: items});
     }
 

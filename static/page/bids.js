@@ -4,7 +4,6 @@ const table = document.querySelector("body > main >" +
                                          " div:nth-child(2) > table")
 sendJSON({method:"GET", url: "/auction/won"} , (err,resp) =>{
     if (!err){
-        console.log(resp)
         document.querySelector("body > main >" +
                                    " div:nth-child(2) >" +
                                    " table > tbody >" +
@@ -43,7 +42,8 @@ sendJSON({method:"GET", url: "/auction/won"} , (err,resp) =>{
                 " fa-trash")
             iconCell.value = auction.id;
             iconCell.addEventListener("click", (event) =>{
-                console.log("hey")
+                console.log(event.target);
+
                 let body ={
                     id:event.target.value
                 }

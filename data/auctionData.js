@@ -141,7 +141,7 @@ const items = [
 			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat'
 	},
 	{
-		id: uuidv4(),
+		id: 7,
 		title: 'nietszche',
 		auction_end: '2020-12-09',
 		bids:[
@@ -165,7 +165,7 @@ const items = [
 			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat'
 	},
 	{
-		id: uuidv4(),
+		id:8,
 		title: 'locke',
 		auction_end: '2020-12-09',
 		bids:[
@@ -189,7 +189,7 @@ const items = [
 			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat'
 	},
 	{
-		id: uuidv4(),
+		id: 9,
 		title: 'The human eye5',
 		auction_end: '2020-12-09',
 		bids:[
@@ -213,7 +213,7 @@ const items = [
 			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat'
 	},
 	{
-		id: uuidv4(),
+		id: 10,
 		title: 'socrates',
 		auction_end: '2020-12-09',
 		bids:[
@@ -237,7 +237,7 @@ const items = [
 			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat'
 	},
 	{
-		id: uuidv4(),
+		id: 11,
 		title: 'socrates',
 		auction_end: '2020-12-09',
 		bids:[
@@ -261,7 +261,7 @@ const items = [
 			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat'
 	},
 	{
-		id: uuidv4(),
+		id: 12,
 		title: 'socrates',
 		auction_end: '2020-12-09',
 		bids:[
@@ -285,7 +285,7 @@ const items = [
 			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat'
 	},
 	{
-		id: uuidv4(),
+		id:13,
 		title: 'socrates',
 		auction_end: '2020-12-09',
 		bids:[
@@ -309,7 +309,7 @@ const items = [
 			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat'
 	},
 	{
-		id: uuidv4(),
+		id: 14,
 		title: 'socrates',
 		auction_end: '2020-12-09',
 		bids:[
@@ -333,7 +333,7 @@ const items = [
 			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat'
 	},
 	{
-		id: uuidv4(),
+		id:15,
 		title: 'socrates',
 		auction_end: '2020-12-09',
 		bids:[
@@ -357,7 +357,7 @@ const items = [
 			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat'
 	},
 	{
-		id: uuidv4(),
+		id: 16,
 		title: 'socrates',
 		auction_end: '2020-12-09',
 		bids:[

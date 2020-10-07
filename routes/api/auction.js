@@ -89,7 +89,6 @@ router.get('/won', auth, (req, res) => {
 			?auctionItems[index]["won"]="Yes":auctionItems[index]["won"] = "No"
 	});
 
-	console.log(wonItems)
 
 	if (wonItems.length === 0) {
 		return res.status(StatusCodes.NOT_FOUND).json({ NoItemsFound: 'No won auction item found' });
@@ -175,18 +174,21 @@ router.post('/', auth, (req, res) => {
 router.delete('/', auth, (req, res) => {
 	let indexItem;
 	let itemId = req.body.id;
-
+	console.log(itemId)
 	//lets first check if we actually have an admin
 	if (req.user.role !== 'admin') {
 		return res.status(StatusCodes.UNAUTHORIZED).json({ error: 'Not admin' +
 				' Not alowed' });
 	}
 
+
 	//lets find the item
 	let item = auction_items.find(({ id }, index) => {
+		console.log(id)
 		indexItem = index;
 		return id === parseInt(itemId);
 	});
+	console.log(item)
 
 	//if there is no item no item found
 	if (item === undefined) {
@@ -195,7 +197,7 @@ router.delete('/', auth, (req, res) => {
 	}
 
 	//return the items
-	auction_items = auction_items.filter((item) => parseInt(item.id) !== parseInt(itemId));
+	auction_items = auction_items.filter((item) => (item.id) !== parseInt(itemId));
 	return res.status(StatusCodes.OK).json({ items: auction_items });
 });
 
@@ -241,6 +243,18 @@ router.put('/', auth, (req, res) => {
 });
 
 
-
+// modifyCell.addEventListener("click", (event) =>{
+//     console.log(event.target);
+//     let body ={
+//         id:event.target.value
+//     }
+//     sendJSON({method:"PUT", url:"/auction", body}, (err,resp) =>{
+//         if(!err){
+//             console.log(resp)
+//         }else{
+//             console.log(err)
+//         }
+//     })
+// })
 
 module.exports = router;
