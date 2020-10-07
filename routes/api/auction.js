@@ -80,23 +80,24 @@ router.get('/won', auth, (req, res) => {
 	let auctionItems = [ ...auction_items ];
 	//check if the auction ended and if the user matches
 
-	console.log(auctionItems)
+
 	let wonItems = auctionItems.map((item,index) => {
 
 		((item.bids[item.bids.length-1].bidder === req.user.username)
 			&& (parseInt(item.bids[item.bids.length-1].date.split("-").join(" "))
 				<parseInt(new Date().toISOString().slice(0,10).replace(/-/g,''))))
-			?auctionItems[index].won="Yes":auctionItems[index].won = "No"
-		});
+			?auctionItems[index]["won"]="Yes":auctionItems[index]["won"] = "No"
+	});
 
 	console.log(wonItems)
 
 	if (wonItems.length === 0) {
 		return res.status(StatusCodes.NOT_FOUND).json({ NoItemsFound: 'No won auction item found' });
 	} else {
-		return res.status(StatusCodes.OK).json({ wonAuctionItems: wonItems });
+		return res.status(StatusCodes.OK).json({ wonAuctionItems: auctionItems });
 	}
 });
+
 
 
 // @route    GET api/auction/:name
