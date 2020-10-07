@@ -1,10 +1,11 @@
 // JWT token string with header, payload and signature
+
 let sessionToken;
 let requestText;
 let requestStatusCode;
 // send HTTP request, possibly with JSON body, and invoke callback when JSON response body arrives
 const searchbar = document.getElementsByClassName("search-container")[0];
-const inputSubmit = document.getElementsByClassName("search-container")[0].querySelector("form");
+
 
 export function sendJSON({ method, url, body }, callback) {
 	const xhr = new XMLHttpRequest();
@@ -46,10 +47,10 @@ export function resetToken() {
 }
 
 export function getTokenPayload() {
-	let jsonLocalStorageToken = localStorage.getItem('token').split('.')[1];
+	let jsonLocalStorageToken = localStorage.getItem('token');
 	if (jsonLocalStorageToken) {
 		// extract JSON payload from token string
-		return JSON.parse(atob(jsonLocalStorageToken));
+		return JSON.parse(atob(jsonLocalStorageToken.split('.')[1]));
 	}
 	return undefined;
 }
@@ -97,7 +98,7 @@ function locationDropDown2(items) {
 		techniqueSet.add(item.technique);
 	})
 	let locationDropDown = document.createElement('select');
-	let tecniqueDropdown = document.createElement('select');
+	let techniqueDropDown = document.createElement('select');
 	let locationLabel = document.createElement('label');
 	locationLabel.innerHTML += "locations: "
 	let techniqueLabel = document.createElement('label');
@@ -111,18 +112,28 @@ function locationDropDown2(items) {
 		locationDropDown.append(option);
 	})
 
+	let option = document.createElement('option');
+	option.value = "";
+	option.innerHTML = "";
+	locationDropDown.append(option);
+
 	techniqueSet.forEach(e =>{
 		let option = document.createElement('option');
 		option.value = e;
 		option.innerHTML = e;
-		tecniqueDropdown.append(option);
+		techniqueDropDown.append(option);
 	})
+
+	let option2 = document.createElement('option');
+	option2.value = "";
+	option2.innerHTML = "";
+	techniqueDropDown.append(option2);
 
 	let brTag = document.createElement('div');
 	brTag.innerHTML = "<br>"
 
 	locationLabel.append(locationDropDown);
-	techniqueLabel.append(tecniqueDropdown);
+	techniqueLabel.append(techniqueDropDown);
 
 
 	searchbar.append(techniqueLabel)
@@ -160,15 +171,27 @@ function priceSlider(items) {
 }
 
 
-
-function handleNavigation(query) {
-	console.log('DOM has loaded');
-	//create
-}
-
 window.onload = function() {
-	// getTokenPayload();
+	let tokenPayload = getTokenPayload();
+	// if (tokenPayload==)
+
 	populateFilters();
+	console.log(tokenPayload)
+	if (tokenPayload){
+		if (tokenPayload.role === "user"){
+			document.querySelector("body > nav >" +
+									   " a:nth-child(3)").outerHTML
+			="";
+			document.querySelector("body > nav >" +
+									   " a:nth-child(3)").outerHTML="";
+		}else{
+
+		}
+	}else{
+		document.getElementsByClassName("auction_nav")[0].querySelectorAll("a")[2].outerHTML="";
+		document.getElementsByClassName("auction_nav")[0].querySelectorAll("a")[1].outerHTML="";
+		document.getElementsByClassName("auction_nav")[0].querySelectorAll("a")[2].outerHTML="";
+	}
 	console.log('DOM has loaded');
 };
 

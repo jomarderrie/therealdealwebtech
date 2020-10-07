@@ -4,7 +4,7 @@ const users = [
 	{
 		id: uuidv4(),
 		username: 'henk',
-		password: '$2b$10$27RjxDcu2h0Lx8s.33CuUOthWHM3gQHm.TFLUKbU0cojSKq5LaD6.', //henk123
+		password: '$2b$10$LZXz8vzLFUv7UKlzDxYGK.6hdRl0kvKa/RI4vA3d7IpmyMHFDdkPq', //Henk!23
 		email: 'henk@gmail.com',
 		role: 'admin'
 	},
@@ -18,7 +18,7 @@ const users = [
 	{
 		id: uuidv4(),
 		username: 'henk3',
-		password: '$2b$10$H4FzSgdcWA1DMpDypfeC5uEj.H9N/5QLuz2aEdZ7S5zEav/LIylPG', //henk123321
+		password: '$2b$10$OMn/mTyHdSk6AW0hoknXi.7QY81efCdBbxzwLoH19Yi/k1V5JaBEO', //Henk!23
 		email: 'henk3@gmail.com',
 		role: 'user'
 	}

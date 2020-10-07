@@ -8,7 +8,6 @@ const bidRoute = require('./routes/api/bid');
 const registerRoute = require('./routes/api/user');
 //app
 const app = express();
-const Router = require('vanilla-router');
 //bodyparser
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(

@@ -74,6 +74,19 @@ Content-Type: application/json
     client.assert(response.body.auctionItems, "There is no items")
 });
  %}
+
+### multiple parameter search
+GET http://localhost:3000/auction?technique=digital&price=30&search=eye
+Content-Type: application/json
+
+> {%
+ client.test("Request executed succesfully", function(){
+    client.assert(response.status === 200, "Response status is not 200, "  + response.status)
+});
+ client.test("Check body" , function(){
+    client.assert(response.body.auctionItems, "There is no items")
+});
+ %}
 ### invalid logical search
 GET http://localhost:3000/auction/?search=ok
 Content-Type: application/json

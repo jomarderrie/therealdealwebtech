@@ -81,7 +81,6 @@ amountInput.addEventListener("click", (e) => {
         if (!err) {
             window.location.href = 'auction.html?auction=' + titleAuction.split(" ").join("-");
             inputItem.classList.remove("bad");
-            console.log(response)
         } else {
             inputItem.classList.add("bad");
             if (getRequestStatus() === 403) {

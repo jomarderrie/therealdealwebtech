@@ -11,7 +11,7 @@ paginaDiv.style.textAlign="center";
 paginaDiv.style.padding = "30px"
 mainElement.appendChild(paginaDiv);
 const pageElement = document.getElementsByClassName('page_numbers')[0];
-
+const inputSubmit = document.getElementsByClassName("search-container")[0].querySelector("form");
 
 let current_page =1;
 let rows = 5;
@@ -22,6 +22,7 @@ sendJSON({ method: 'get', url: '/auction' }, (err, resp) => {
 		items = resp.auctionItems.filter((item) => {
 			return (parseInt(new Date().toISOString().slice(0, 10).replace(/-/g, '')) < parseInt(item.auction_end.split('-').join('')))
 		});
+
 		displayList(items, rowElement, rows, current_page);
 		setupPagination(items, pageElement, rows)
 	} else {
@@ -41,7 +42,7 @@ sendJSON({ method: 'get', url: '/auction' }, (err, resp) => {
 
 function createSection({ title, auction_end, bids, description}) {
 	//check if the auction already ended.
-
+	console.log("hey")
 		//create section element
 
 		let section = document.createElement('section');
@@ -91,14 +92,14 @@ function displayList(items,wrapper,rows_per_page, page ){
 
 	let loopStart = rows_per_page*page;
 	let paginatedItems = items.slice(loopStart, loopStart+rows_per_page);
-	console.log(items)
 	for (let i =0; i<paginatedItems.length; i++){
 		createSection(paginatedItems[i])
 
 	}
 }
 
-function setupPagination(items, wrapper,rows_per_page){
+ function setupPagination(items, wrapper,rows_per_page){
+	wrapper.innerHTML="";
 	let page_count = Math.ceil(items.length/ rows_per_page)
 	for (let i = 1; i < page_count+1; i++) {
 		let btn = paginationButton(i);
@@ -119,3 +120,41 @@ function paginationButton(page){
 
 	return button
 }
+
+inputSubmit.addEventListener("submit", event=>{
+	event.preventDefault();
+	const rowElement = document.getElementsByClassName('row')[0];
+	rowElement.innerHTML="";
+	let inputSearchValue = inputSubmit.querySelector("input").value;
+	let priceInput = document.querySelector("#range_price").querySelector("input").value;
+	let locationInput = document.querySelector("body >" +
+												   " nav > div > label:nth-child(6) > select").value;
+	let techniqueInput = document.querySelector("body >" +
+													" nav" +
+													" >" +
+													" div > label:nth-child(4) > select").value;
+	const parms = new URLSearchParams({
+										  search:inputSearchValue,
+										  price:priceInput,
+										  location:locationInput,
+										  technique:techniqueInput
+									  });
+
+
+
+	sendJSON({method:'GET',
+				 url:'/auction?'+parms}, (err,resp) =>{
+
+		if (!err){
+			console.log(resp)
+			items = resp.auctionItems;
+			displayList(items, rowElement, rows,current_page)
+			setupPagination(items, pageElement, rows)
+		}else{
+			var tag = document.createElement('div');
+			tag.innerHTML = '<h1>No items</h1>';
+			rowElement.append(tag);
+			console.log(err)
+		}
+	})
+});

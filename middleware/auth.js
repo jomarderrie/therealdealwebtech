@@ -16,7 +16,7 @@ function authenticateToken(req, res, next) {
 	if (token == null) {
 		return res.status(StatusCodes.UNAUTHORIZED).json({ error: 'Try to' +
 				' login again' });
-	}
+	}2
 	//verify token
 	jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
 		if (err) {

@@ -44,6 +44,7 @@ router.post('/', async (req, res) => {
 			email: email,
 			role: 'user'
 		};
+		console.log(hashedPassword);
 		users.push(responseObject);
 
 		return res.status(StatusCodes.OK).json({ ok: "User registered" });

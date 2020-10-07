@@ -16,41 +16,48 @@ const jwt = require('jsonwebtoken');
 // @param location
 // @param technique
 router.get('', (req, res) => {
-	const { search, location, price, technique } = req.query;
+	let { search, location, price, technique } = req.query;
+
 	let auctionItems = [ ...auction_items ];
 
-	//search for auctionItems with a given keyword in it
 	if (search !== undefined) {
+		if (search.length!==0){
 		auctionItems = auctionItems.filter(({ title }) => {
 			return title.toLowerCase().indexOf(search.toLowerCase()) !== -1;
 		});
-	}
+	}}
 
 	//location
 	if (location !== undefined) {
-		let lowerCaseLocation = location.toLowerCase();
-		auctionItems = auctionItems.filter(({ location }) => {
-			return lowerCaseLocation === location.toLowerCase();
-		});
+		if (location.length!==0) {
+			let lowerCaseLocation = location.toLowerCase();
+			auctionItems = auctionItems.filter(({location}) => {
+				return lowerCaseLocation === location.toLowerCase();
+			});
+		}
 	}
 
 	//price
 	if (price !== undefined) {
-		let parsedPrice = parseInt(price);
-		if (Number.isNaN(parsedPrice)) {
-			res.status(404).json({ error: 'Invalid number filled in' });
+		if (price!==0) {
+			let parsedPrice = parseInt(price);
+			if (Number.isNaN(parsedPrice)) {
+				res.status(404).json({error: 'Invalid number filled in'});
+			}
+			auctionItems = auctionItems.filter((item) => {
+				return (item.bids[item.bids.length - 1].amount <= parsedPrice);
+			});
 		}
-		auctionItems = auctionItems.filter((item) =>{
-		return (item.bids[item.bids.length-1].amount <= parsedPrice);
-		});
 	}
 
 	//technique
 	if (technique !== undefined) {
-		let techniqueLowerCase = technique.toLowerCase();
-		auctionItems = auctionItems.filter(({ technique }) => {
-			return techniqueLowerCase === technique.toLowerCase();
-		});
+		if (technique.length!==0) {
+			let techniqueLowerCase = technique.toLowerCase();
+			auctionItems = auctionItems.filter(({technique}) => {
+				return techniqueLowerCase === technique.toLowerCase();
+			});
+		}
 	}
 
 	//if none of parameters are defined --> give all the items.
