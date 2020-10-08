@@ -80,14 +80,24 @@ router.get('/won', auth, (req, res) => {
 	let auctionItems = [ ...auction_items ];
 	//check if the auction ended and if the user matches
 
-
+	let username = req.user.username;
 	let wonItems = auctionItems.map((item,index) => {
 
-		((item.bids[item.bids.length-1].bidder === req.user.username)
+		((item.bids[item.bids.length-1].bidder === username)
 			&& (parseInt(item.bids[item.bids.length-1].date.split("-").join(" "))
 				<parseInt(new Date().toISOString().slice(0,10).replace(/-/g,''))))
 			?auctionItems[index]["won"]="Yes":auctionItems[index]["won"] = "No"
 	});
+
+
+	//  auctionItems.map((item) =>{
+	// 	item.bids.filter((item) =>{
+	// 		return item.bidder
+	// 		=== username
+	// 	})
+	//
+	// })
+	// console.log(auctionItems)
 
 
 	if (wonItems.length === 0) {
@@ -180,13 +190,12 @@ router.delete('/', auth, (req, res) => {
 	//lets first check if we actually have an admin
 	if (req.user.role !== 'admin') {
 		return res.status(StatusCodes.UNAUTHORIZED).json({ error: 'Not admin' +
-				' Not alowed' });
+				' Not allowed' });
 	}
 
 
 	//lets find the item
 	let item = auction_items.find(({ id }, index) => {
-		console.log(id)
 		indexItem = index;
 		return id === parseInt(itemId);
 	});

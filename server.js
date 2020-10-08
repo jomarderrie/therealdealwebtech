@@ -11,10 +11,10 @@ const app = express();
 //bodyparser
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(
-	bodyParser.urlencoded({
-		// to support URL-encoded bodies
-		extended: true
-	})
+    bodyParser.urlencoded({
+                              // to support URL-encoded bodies
+                              extended: true
+                          })
 );
 // routes middleware
 app.use('/auth', authRoute);
@@ -26,5 +26,5 @@ app.use('/register', registerRoute);
 app.use(express.static('./static'));
 
 app.listen(port, () => {
-	console.log(`app listening at http://localhost:${port}`);
+    console.log(`app listening at http://localhost:${port}`);
 });

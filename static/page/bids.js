@@ -20,6 +20,7 @@ sendJSON({method:"GET", url: "/auction/won"} , (err,resp) =>{
         for(const auction of resp.wonAuctionItems){
 
             const row = document.createElement("tr");
+            row.id = auction.id;
             const nameCell = document.createElement("td")
             nameCell.innerText = auction.title;
             row.appendChild(nameCell);
@@ -42,11 +43,14 @@ sendJSON({method:"GET", url: "/auction/won"} , (err,resp) =>{
                 " fa-trash")
             iconCell.value = auction.id;
             iconCell.addEventListener("click", (event) =>{
-                console.log(event.target);
+                let trClickedElement = document.getElementById(event.target.value);
+                let tdAmount = parseInt(trClickedElement.querySelectorAll("td")[1].innerText);
 
                 let body ={
-                    id:event.target.value
+                    id:event.target.value,
+                    amount: tdAmount
                 }
+
                 sendJSON({method:"DELETE", url:"/bid", body}, (err,resp) =>{
                     if(!err){
                         console.log(resp)

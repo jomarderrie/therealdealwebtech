@@ -186,9 +186,7 @@ window.onload = function() {
 									   " a:nth-child(3)").outerHTML="";
 		}else{
 			document.querySelector("body > nav >" +
-									   " a:nth-child(2)").outerHTML="";
-			document.querySelector("body > nav >" +
-									   " a:nth-child(3)").outerHTML="";
+									   " a:nth-child(4)").outerHTML="";
 		}
 	}else{
 		document.getElementsByClassName("auction_nav")[0].querySelectorAll("a")[2].outerHTML="";
