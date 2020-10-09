@@ -173,28 +173,26 @@ function priceSlider(items) {
 
 window.onload = function() {
 	let tokenPayload = getTokenPayload();
-	// if (tokenPayload==)
-
 	populateFilters();
-	console.log(tokenPayload)
-	if (tokenPayload){
-		if (tokenPayload.role === "user"){
+
+	if (tokenPayload) {
+		if (tokenPayload.role === "user") {
 			document.querySelector("body > nav >" +
 									   " a:nth-child(3)").outerHTML
-			="";
+				= "";
 			document.querySelector("body > nav >" +
-									   " a:nth-child(3)").outerHTML="";
-		}else{
+									   " a:nth-child(3)").outerHTML = "";
+		} else {
 			document.querySelector("body > nav >" +
-									   " a:nth-child(4)").outerHTML="";
+									   " a:nth-child(4)").outerHTML = "";
 		}
-	}else{
-		document.getElementsByClassName("auction_nav")[0].querySelectorAll("a")[2].outerHTML="";
-		document.getElementsByClassName("auction_nav")[0].querySelectorAll("a")[1].outerHTML="";
-		document.getElementsByClassName("auction_nav")[0].querySelectorAll("a")[2].outerHTML="";
+	} else {
+		document.getElementsByClassName("auction_nav")[0].querySelectorAll("a")[2].outerHTML = "";
+		document.getElementsByClassName("auction_nav")[0].querySelectorAll("a")[1].outerHTML = "";
+		document.getElementsByClassName("auction_nav")[0].querySelectorAll("a")[2].outerHTML = "";
 	}
-	console.log('DOM has loaded');
-};
+	;
+}
 
 
 document.querySelector('nav').querySelectorAll('a')[4].addEventListener('click', resetToken);

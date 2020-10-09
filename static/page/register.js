@@ -1,7 +1,7 @@
 import {
     sendJSON,
     saveToken,
-    validateInputControl, resetToken
+     resetToken
 } from './util.js';
 
 

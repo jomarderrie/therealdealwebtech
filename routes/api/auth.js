@@ -3,7 +3,7 @@ const router = express.Router();
 const StatusCodes = require('http-status-codes');
 const bcrypt = require('bcrypt');
 const users = require('../../data/userData');
-const auth = require('../../middleware/auth');
+
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 

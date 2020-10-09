@@ -1,5 +1,5 @@
 
-import { sendJSON, saveToken, validateInputControl } from './util.js';
+import { sendJSON } from './util.js';
 const table = document.querySelector("body > main >" +
                                          " div:nth-child(2) > table")
 sendJSON({method:"GET", url: "/auction/won"} , (err,resp) =>{
@@ -17,51 +17,61 @@ sendJSON({method:"GET", url: "/auction/won"} , (err,resp) =>{
                                    " table > tbody >" +
                                    " tr:nth-child(2)").outerHTML="";
 
-        for(const auction of resp.wonAuctionItems){
+        for(const auction of resp.wonAuctionItems) {
+            if (auction.bids[auction.bids.length - 1].amount !== 0) {
+                const row = document.createElement("tr");
+                row.id = auction.id;
+                const nameCell = document.createElement("td")
+                nameCell.innerText = auction.title;
+                row.appendChild(nameCell);
 
-            const row = document.createElement("tr");
-            row.id = auction.id;
-            const nameCell = document.createElement("td")
-            nameCell.innerText = auction.title;
-            row.appendChild(nameCell);
+                const priceCell = document.createElement("td")
+                priceCell.innerText = auction.bids[auction.bids.length - 1].amount;
+                row.appendChild(priceCell);
 
-            const priceCell = document.createElement("td")
-            priceCell.innerText = auction.bids[auction.bids.length-1].amount;
-            row.appendChild(priceCell);
+                const timeCell = document.createElement("td");
+                timeCell.innerText = auction.auction_end;
+                row.appendChild(timeCell);
 
-            const timeCell = document.createElement("td");
-            timeCell.innerText = auction.auction_end;
-            row.appendChild(timeCell);
+                const bidCell = document.createElement("td");
+                bidCell.innerText = auction.won;
+                row.appendChild(bidCell);
 
-            const bidCell = document.createElement("td");
-            bidCell.innerText = auction.won;
-            row.appendChild(bidCell);
-
-            const removeCell = document.createElement("td");
-            const iconCell =  document.createElement("button");
-            iconCell.setAttribute("class", "fa" +
-                " fa-trash")
-            iconCell.value = auction.id;
-            iconCell.addEventListener("click", (event) =>{
-                let trClickedElement = document.getElementById(event.target.value);
-                let tdAmount = parseInt(trClickedElement.querySelectorAll("td")[1].innerText);
-
-                let body ={
-                    id:event.target.value,
-                    amount: tdAmount
-                }
-
-                sendJSON({method:"DELETE", url:"/bid", body}, (err,resp) =>{
-                    if(!err){
-                        console.log(resp)
-                    }else{
-                        console.log(err)
+                const removeCell = document.createElement("td");
+                const iconCell = document.createElement("button");
+                iconCell.setAttribute("class", "fa" +
+                    " fa-trash")
+                iconCell.value = auction.id;
+                iconCell.addEventListener("click", (event) => {
+                    let trClickedElement = document.getElementById(event.target.value);
+                    let tdAmount = parseInt(trClickedElement.querySelectorAll("td")[1].innerText);
+                    let idItem = event.target.value;
+                    let body = {
+                        id: idItem,
+                        amount: tdAmount
                     }
+
+
+                    sendJSON({
+                                 method: "DELETE",
+                                 url: "/bid",
+                                 body
+                             }, (err, resp) => {
+                        if (!err) {
+                            let selectItem = document.getElementById(idItem);
+                            selectItem.outerHTML = "";
+
+                        } else {
+                            console.log(err)
+                        }
+                    })
+
+
                 })
-            })
-            removeCell.append(iconCell);
-            row.appendChild(removeCell)
-            table.appendChild(row)
+                removeCell.append(iconCell);
+                row.appendChild(removeCell)
+                table.appendChild(row)
+            }
         }
     }else{
         table.innerHTML ="<h2>Failed to load data</h2>"

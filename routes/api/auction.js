@@ -77,9 +77,9 @@ router.get('', (req, res) => {
 // @desc     I want to see a list of all auctions I won
 // @access   Public
 router.get('/won', auth, (req, res) => {
+	console.log(auction_items)
 	let auctionItems = [ ...auction_items ];
 	//check if the auction ended and if the user matches
-
 	let username = req.user.username;
 	let wonItems = auctionItems.map((item,index) => {
 
@@ -89,15 +89,6 @@ router.get('/won', auth, (req, res) => {
 			?auctionItems[index]["won"]="Yes":auctionItems[index]["won"] = "No"
 	});
 
-
-	//  auctionItems.map((item) =>{
-	// 	item.bids.filter((item) =>{
-	// 		return item.bidder
-	// 		=== username
-	// 	})
-	//
-	// })
-	// console.log(auctionItems)
 
 
 	if (wonItems.length === 0) {
@@ -186,7 +177,7 @@ router.post('/', auth, (req, res) => {
 router.delete('/', auth, (req, res) => {
 	let indexItem;
 	let itemId = req.body.id;
-	console.log(itemId)
+
 	//lets first check if we actually have an admin
 	if (req.user.role !== 'admin') {
 		return res.status(StatusCodes.UNAUTHORIZED).json({ error: 'Not admin' +
@@ -220,7 +211,7 @@ router.delete('/', auth, (req, res) => {
 router.put('/', auth, (req, res) => {
 	let indexItem;
 	let itemId = parseInt(req.body.id);
-	console.log(itemId);
+	console.log(req.body)
 	//lets first check if we actually have an admin
 	if (req.user.role !== 'admin') {
 		return res.status(StatusCodes.UNAUTHORIZED).json({ error: 'Not admin' +
@@ -232,17 +223,20 @@ router.put('/', auth, (req, res) => {
 		indexItem = index;
 		return id === parseInt(itemId);
 	});
+
+
 	//if there is no item no item found
 	if (item === undefined) {
 		return res.status(StatusCodes.NOT_FOUND).json({ error: 'Item not' +
 				' found' });
 	}
+
 	if(Object.keys(req.body).length < 2){
 		return res.status(StatusCodes.NOT_FOUND).json({ error: 'Nothing to change '
 				 });
 	}
 	//the keys on which we want to check on
-	let keys = [ 'title', 'auction_end', 'img', 'location', 'technique' ];
+	let keys = [ 'title', 'auction_end'];
 	//lets change the array
 	Object.keys(req.body).forEach((key) => {
 		if (keys.includes(key)){

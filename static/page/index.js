@@ -27,23 +27,20 @@ sendJSON({ method: 'get', url: '/auction' }, (err, resp) => {
 		setupPagination(items, pageElement, rows)
 	} else {
 		window.location.href = 'index.html';
-		var tag = document.createElement('div');
+		let tag = document.createElement('div');
 		tag.innerHTML = '<p>register succesfull<p>';
 		tag.setAttribute('class', 'registerSucces');
 		tag.style.background = 'green';
 		tag.style.display = 'relative';
 		tag.style.width = '100px';
 		tag.style.height = '100px';
-		var element = document.getElementsByClassName('row')[0];
+		let element = document.getElementsByClassName('row')[0];
 		element.append(tag);
 		console.log(err);
 	}
 });
 
 function createSection({ title, auction_end, bids, description}) {
-	//check if the auction already ended.
-	console.log("hey")
-		//create section element
 
 		let section = document.createElement('section');
 		section.setAttribute('class', 'auction_box');
@@ -78,7 +75,7 @@ function createSection({ title, auction_end, bids, description}) {
 
 		section.append(auctionDiv);
 		//add the section
-		var element = document.getElementsByClassName('row')[0];
+		let element = document.getElementsByClassName('row')[0];
 		element.append(section);
 
 }
@@ -150,7 +147,7 @@ inputSubmit.addEventListener("submit", event=>{
 			displayList(items, rowElement, rows,current_page)
 			setupPagination(items, pageElement, rows)
 		}else{
-			var tag = document.createElement('div');
+			let tag = document.createElement('div');
 			tag.innerHTML = '<h1>No items</h1>';
 			rowElement.append(tag);
 			console.log(err)

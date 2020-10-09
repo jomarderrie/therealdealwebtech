@@ -20,7 +20,10 @@ sendJSON({method: "get", url: '/auction'}, (err, resp) => {
 
         for (const auction of resp.auctionItems) {
             const row = document.createElement("tr");
+            row.id = auction.id;
+
             const nameCell = document.createElement("td")
+
             nameCell.innerText = auction.title;
             row.appendChild(nameCell);
 
@@ -32,6 +35,8 @@ sendJSON({method: "get", url: '/auction'}, (err, resp) => {
             const removeCell = document.createElement("td");
             const iconCell = document.createElement("button");
             const modifyCell = document.createElement("button");
+            const addCell = document.createElement("button");
+            addCell.setAttribute("class", "fa fa-plus")
             modifyCell.setAttribute("class", "fa" +
                 " fa-pencil");
 
@@ -40,15 +45,22 @@ sendJSON({method: "get", url: '/auction'}, (err, resp) => {
                 " fa-trash")
             modifyCell.value = auction.id;
             modifyCell.id = auction.id;
+            addCell.value = auction.id;
             iconCell.value = auction.id;
             removeCell.append(modifyCell)
             removeCell.append(iconCell);
+            removeCell.append(addCell)
 
 
             iconCell.addEventListener("click", (event) => {
+                let idItem = event.target.value;
+                let selectItem = document.getElementById(idItem);
+                selectItem.outerHTML = "";
+
                 let body = {
                     id: event.target.value
                 }
+
                 sendJSON({
                              method: "DELETE",
                              url: "/auction",
@@ -63,26 +75,41 @@ sendJSON({method: "get", url: '/auction'}, (err, resp) => {
             })
             modifyCell.addEventListener("click", (event) => {
                 let idItem = event.target.value;
-                let body = {
-                    id: idItem
-                }
-                console.log(idItem)
-                let selectItem =   document.getElementById(   idItem);
-                console.log(selectItem.outerHTML)
-                document.querySelector("body > main > div:nth-child(2) > table > tr:nth-child(7)")
 
-                sendJSON({
-                             method: "PUT",
-                             url: "/auction",
-                             body
-                         }, (err, resp) => {
-                    if (!err) {
-                        console.log(resp)
-                    } else {
-                        console.log(err)
-                    }
-                })
+                let selectItem = document.getElementById(idItem);
+
+                let td = selectItem.querySelectorAll("td");
+
+                td[0].contentEditable="true";
+                td[1].contentEditable="true";
+
             })
+
+                addCell.addEventListener("click", (event) =>{
+                    let idItem = event.target.value;
+                    let selectItem = document.getElementById(idItem);
+                    let td = selectItem.querySelectorAll("td");
+
+
+                    let body = {
+                        id:event.target.value,
+                        title: td[0].innerText,
+                        auction_end: td[1].innerText
+                    }
+
+                    sendJSON({
+                                 method: "PUT",
+                                 url: "/auction",
+                                 body
+                             }, (err, resp) => {
+                        if (!err) {
+                            console.log(resp)
+                        } else {
+                            console.log(err)
+                        }
+                    })
+                })
+
             row.appendChild(removeCell)
             table.appendChild(row)
         }
