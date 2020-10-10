@@ -6,6 +6,7 @@ const users = require('../../data/userData');
 
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+// ![use_case](images/usecase.png)
 
 // @route POST /auth/
 // @desc As an administrator/user and user I want to be able to log in
