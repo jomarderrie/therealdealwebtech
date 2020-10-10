@@ -10,7 +10,7 @@ const users = [
 	},
 	{
 		id: uuidv4(),
-		username: 'admin',
+		username: 'user',
 		password: '$2b$10$ANS1YPhWrlL1l7NXE159aOzzbrsFk4kGcYEemqySBaB4WaQX3WRnW', //admin
 		email: 'admin@gmail.com',
 		role: 'user'
